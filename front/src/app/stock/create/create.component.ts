@@ -32,11 +32,7 @@ export class CreateComponent implements OnInit {
     price: [0, [Validators.required]],
     qty: [1, [Validators.required]],
   });
-  errors = {
-    name: this.errorService.getErrors(this.f, 'name'),
-    price: this.errorService.getErrors(this.f, 'price'),
-    qty: this.errorService.getErrors(this.f, 'qty'),
-  };
+  errors = this.errorService.getErrors(this.f);
   faCircleNotch = faCircleNotch;
   faPlus = faPlus;
   isAdding = false;

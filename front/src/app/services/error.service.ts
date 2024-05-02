@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, ValidationErrors } from '@angular/forms';
+import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { Observable, map, of, startWith, tap } from 'rxjs';
 
 export const getMessage = (errors: ValidationErrors | null) => {
@@ -19,15 +19,24 @@ export const getMessage = (errors: ValidationErrors | null) => {
   providedIn: 'root',
 })
 export class ErrorService {
-  getErrors(f: FormGroup, fieldname: string): Observable<string> {
+  getErrors<T extends { [K in keyof T]: AbstractControl<any> }>(
+    f: FormGroup<T>
+  ): { [keys in keyof T]: Observable<string> } {
     console.log('getErrors');
-    const control = f.controls[fieldname];
-    return control.valueChanges.pipe(
-      startWith(control.value),
-      map((value) => {
-        console.log('value: ', value);
-        return getMessage(control.errors);
-      })
-    );
+    const result = {} as {
+      [keys in keyof T]: Observable<string>;
+    };
+    for (const name in f.controls) {
+      const control = f.controls[name];
+      result[name as keyof T] = control.valueChanges.pipe(
+        startWith(control.value),
+        map((value) => {
+          console.log('value: ', value);
+          return getMessage(control.errors);
+        })
+      );
+    }
+
+    return result;
   }
 }
