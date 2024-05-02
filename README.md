@@ -25,3 +25,7 @@
 
 - use dynamic import
 - use default export to short code.
+
+### Use typings in form
+
+- no more "as" in the code (dangerous)
