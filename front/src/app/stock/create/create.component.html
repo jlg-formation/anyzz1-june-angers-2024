@@ -10,14 +10,14 @@
       <span>Prix</span>
       <input type="number" formControlName="price" />
       <span class="error">
-        @if (f.controls.price.errors?.['required']) { Champ requis }
+        {{ errorService.getMessage(f, "price") }}
       </span>
     </label>
     <label>
       <span>Quantité</span>
       <input type="number" formControlName="qty" />
       <span class="error">
-        @if (f.controls.qty.errors?.['required']) { Champ requis }
+        {{ errorService.getMessage(f, "qty") }}
       </span>
     </label>
     <div class="error">

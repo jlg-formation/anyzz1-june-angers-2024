@@ -6,6 +6,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class ErrorService {
   getMessage(f: FormGroup, fieldname: string) {
+    console.log('running getMessage on', fieldname);
     const control = f.controls[fieldname];
     if (!control) {
       throw new Error('control does not exist');
@@ -13,8 +14,11 @@ export class ErrorService {
     if (control.untouched || control.valid) {
       return '';
     }
-    if (control.invalid) {
-      return 'Champ invalide';
+    if (control.errors?.['required']) {
+      return 'Champ requis';
+    }
+    if (control.errors?.['blackList']) {
+      return `Mot interdit (${control.errors?.['blackList'].blackListedWord})`;
     }
     return '';
   }
