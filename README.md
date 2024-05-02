@@ -15,3 +15,7 @@
 
 - update all components, directives, pipes
 - no more modules
+
+### Update the code to have no more CommonModule
+
+- use @if, @for instead of *ngIf, *ngFor
