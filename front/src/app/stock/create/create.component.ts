@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  FormControl,
-  FormGroup,
+  NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -21,25 +20,17 @@ import { ArticleService } from '../../services/article.service';
 })
 export class CreateComponent implements OnInit {
   errorMsg = '';
-  f = new FormGroup({
-    name: new FormControl('Truc', {
-      validators: [Validators.required],
-      nonNullable: true,
-    }),
-    price: new FormControl(0, {
-      validators: [Validators.required],
-      nonNullable: true,
-    }),
-    qty: new FormControl(1, {
-      validators: [Validators.required],
-      nonNullable: true,
-    }),
+  f = this.fb.group({
+    name: ['Truc', [Validators.required]],
+    price: [0, [Validators.required]],
+    qty: [1, [Validators.required]],
   });
   faCircleNotch = faCircleNotch;
   faPlus = faPlus;
   isAdding = false;
 
   constructor(
+    private fb: NonNullableFormBuilder,
     private articleService: ArticleService,
     private router: Router,
     private route: ActivatedRoute
