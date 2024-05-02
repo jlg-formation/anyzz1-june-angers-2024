@@ -6,7 +6,11 @@
       <input type="text" formControlName="name" />
       <span class="error">
         @if (f.controls.name.touched) { @if
-        (f.controls.name.errors?.['required']) { Champ requis } }
+        (f.controls.name.errors?.['required']) { Champ requis } @else if
+        (f.controls.name.errors?.['blackList']) { Mot interdit (
+        {{ f.controls.name.errors?.['blackList'].blackListedWord
+        }}
+        ) }}
       </span>
     </label>
     <label>
