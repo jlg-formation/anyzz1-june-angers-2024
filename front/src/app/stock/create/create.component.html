@@ -5,22 +5,23 @@
       <span>Nom</span>
       <input type="text" formControlName="name" />
       <span class="error">
-        @if (f.controls.name.errors?.['required']) { Champ requis }
+        @if (f.controls.name.touched) { @if
+        (f.controls.name.errors?.['required']) { Champ requis } }
       </span>
     </label>
     <label>
       <span>Prix</span>
       <input type="number" formControlName="price" />
-      <span class="error"
-        >@if (f.controls.price.errors?.['required']) { Champ requis }</span
-      >
+      <span class="error">
+        @if (f.controls.price.errors?.['required']) { Champ requis }
+      </span>
     </label>
     <label>
       <span>Quantité</span>
       <input type="number" formControlName="qty" />
-      <span class="error"
-        >@if (f.controls.qty.errors?.['required']) { Champ requis }</span
-      >
+      <span class="error">
+        @if (f.controls.qty.errors?.['required']) { Champ requis }
+      </span>
     </label>
     <div class="error">
       @if (errorMsg !== '') {
