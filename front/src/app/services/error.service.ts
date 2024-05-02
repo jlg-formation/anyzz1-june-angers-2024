@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Observable, map, of, startWith, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class ErrorService {
     if (!control) {
       throw new Error('control does not exist');
     }
-    if (control.untouched || control.valid) {
+    if (control.valid) {
       return '';
     }
     if (control.errors?.['required']) {
@@ -21,5 +22,16 @@ export class ErrorService {
       return `Mot interdit (${control.errors?.['blackList'].blackListedWord})`;
     }
     return '';
+  }
+
+  getErrors(f: FormGroup, fieldname: string): Observable<string> {
+    console.log('getErrors');
+    return f.controls[fieldname].valueChanges.pipe(
+      startWith(f.controls[fieldname].value),
+      map((value) => {
+        console.log('value: ', value);
+        return this.getMessage(f, fieldname);
+      })
+    );
   }
 }

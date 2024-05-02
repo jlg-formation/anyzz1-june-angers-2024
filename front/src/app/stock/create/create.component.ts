@@ -13,13 +13,14 @@ import { ArticleService } from '../../services/article.service';
 import { BlacklistService } from '../../services/blacklist.service';
 import { ErrorService } from '../../services/error.service';
 import { blackListValidator } from '../../validators/black-list.validator';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
   standalone: true,
-  imports: [FontAwesomeModule, ReactiveFormsModule],
+  imports: [FontAwesomeModule, ReactiveFormsModule, AsyncPipe],
 })
 export class CreateComponent implements OnInit {
   errorMsg = '';
@@ -31,6 +32,11 @@ export class CreateComponent implements OnInit {
     price: [0, [Validators.required]],
     qty: [1, [Validators.required]],
   });
+  errors = {
+    name: this.errorService.getErrors(this.f, 'name'),
+    price: this.errorService.getErrors(this.f, 'price'),
+    qty: this.errorService.getErrors(this.f, 'qty'),
+  };
   faCircleNotch = faCircleNotch;
   faPlus = faPlus;
   isAdding = false;

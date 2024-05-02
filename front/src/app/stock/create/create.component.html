@@ -4,20 +4,28 @@
     <label>
       <span>Nom</span>
       <input type="text" formControlName="name" />
-      <span class="error"> {{ errorService.getMessage(f, "name") }} </span>
+      <span class="error">
+        @if (f.controls.name.touched) {
+        {{ errors.name | async }}
+        }
+      </span>
     </label>
     <label>
       <span>Prix</span>
       <input type="number" formControlName="price" />
       <span class="error">
-        {{ errorService.getMessage(f, "price") }}
+        @if (f.controls.price.touched) {
+        {{ errors.price | async }}
+        }
       </span>
     </label>
     <label>
       <span>Quantité</span>
       <input type="number" formControlName="qty" />
       <span class="error">
-        {{ errorService.getMessage(f, "qty") }}
+        @if (f.controls.qty.touched) {
+        {{ errors.qty | async }}
+        }
       </span>
     </label>
     <div class="error">
