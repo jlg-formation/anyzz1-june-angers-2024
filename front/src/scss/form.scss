@@ -12,6 +12,11 @@ form {
       border: 0.1em solid #aaa;
       border-radius: 0.3em;
       padding: 0.5em 1em;
+
+      &.ng-invalid.ng-touched {
+        border: 0.05em dashed black;
+        outline: 0.05em dashed black;
+      }
     }
 
     span.error {
