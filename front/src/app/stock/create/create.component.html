@@ -4,14 +4,17 @@
     <label>
       <span>Nom</span>
       <input type="text" formControlName="name" />
+      <span class="error">Champ requis</span>
     </label>
     <label>
       <span>Prix</span>
       <input type="number" formControlName="price" />
+      <span class="error">Champ requis</span>
     </label>
     <label>
       <span>Quantité</span>
       <input type="number" formControlName="qty" />
+      <span class="error">Champ requis</span>
     </label>
     <div class="error">
       @if (errorMsg !== '') {

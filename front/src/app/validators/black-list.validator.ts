@@ -9,7 +9,7 @@ export const blackListValidator: (
     console.log('blackList validation', control);
     const blackList = blackListService.blackList;
     if (blackList.has(control.value)) {
-      return { blackList: true };
+      return { blackList: { blackListedWord: control.value } };
     }
     return null;
   };
