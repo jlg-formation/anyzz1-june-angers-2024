@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./legal.component.scss'],
   standalone: true,
 })
-export class LegalComponent implements OnInit {
+export default class LegalComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}

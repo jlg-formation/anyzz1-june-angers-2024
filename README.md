@@ -24,3 +24,4 @@
 ### Use Lazyloading everywhere except home page
 
 - use dynamic import
+- use default export to short code.

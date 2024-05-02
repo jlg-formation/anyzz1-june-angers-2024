@@ -5,12 +5,10 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   {
     path: 'legal',
-    loadComponent: () =>
-      import('./routes/legal/legal.component').then((m) => m.LegalComponent),
+    loadComponent: () => import('./routes/legal/legal.component'),
   },
   {
     path: 'stock',
-    loadChildren: () =>
-      import('./stock/stock.routes').then((m) => m.stockRoutes),
+    loadChildren: () => import('./stock/stock.routes'),
   },
 ];
