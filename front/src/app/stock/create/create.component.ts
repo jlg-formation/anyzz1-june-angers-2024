@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   NonNullableFormBuilder,
   ReactiveFormsModule,
@@ -10,6 +10,8 @@ import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { lastValueFrom, timer } from 'rxjs';
 import { NewArticle } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
+import { BlacklistService } from '../../services/blacklist.service';
+import { blackListValidator } from '../../validators/black-list.validator';
 
 @Component({
   selector: 'app-create',
@@ -21,7 +23,10 @@ import { ArticleService } from '../../services/article.service';
 export class CreateComponent implements OnInit {
   errorMsg = '';
   f = this.fb.group({
-    name: ['Truc', [Validators.required]],
+    name: [
+      'Truc',
+      [Validators.required, blackListValidator(inject(BlacklistService))],
+    ],
     price: [0, [Validators.required]],
     qty: [1, [Validators.required]],
   });

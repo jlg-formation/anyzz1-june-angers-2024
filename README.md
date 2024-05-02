@@ -29,3 +29,9 @@
 ### Use typings in form
 
 - no more "as" in the code (dangerous)
+- using nonnullable
+- using formbuilder
+
+### Validators
+
+- custom validator with service
