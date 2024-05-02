@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import {
   NonNullableFormBuilder,
@@ -11,9 +12,8 @@ import { lastValueFrom, timer } from 'rxjs';
 import { NewArticle } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
 import { BlacklistService } from '../../services/blacklist.service';
-import { ErrorService } from '../../services/error.service';
+import { getErrors } from '../../utils/errors.utils';
 import { blackListValidator } from '../../validators/black-list.validator';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-create',
@@ -32,7 +32,7 @@ export class CreateComponent implements OnInit {
     price: [0, [Validators.required]],
     qty: [1, [Validators.required]],
   });
-  errors = this.errorService.getErrors(this.f);
+  errors = getErrors(this.f);
   faCircleNotch = faCircleNotch;
   faPlus = faPlus;
   isAdding = false;
@@ -41,8 +41,7 @@ export class CreateComponent implements OnInit {
     private fb: NonNullableFormBuilder,
     private articleService: ArticleService,
     private router: Router,
-    private route: ActivatedRoute,
-    protected errorService: ErrorService
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {}
