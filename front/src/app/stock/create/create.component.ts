@@ -11,6 +11,7 @@ import { lastValueFrom, timer } from 'rxjs';
 import { NewArticle } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
 import { BlacklistService } from '../../services/blacklist.service';
+import { ErrorService } from '../../services/error.service';
 import { blackListValidator } from '../../validators/black-list.validator';
 
 @Component({
@@ -38,7 +39,8 @@ export class CreateComponent implements OnInit {
     private fb: NonNullableFormBuilder,
     private articleService: ArticleService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    protected errorService: ErrorService
   ) {}
 
   ngOnInit(): void {}
