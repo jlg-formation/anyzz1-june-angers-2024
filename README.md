@@ -63,7 +63,13 @@
 
 - added guards on add page that redirect on legal page if more than 5 articles
 
-### Widget component
+### Clock component
 
 - create a component with no input but an internal state : a clock.
 - use it in the legal mention
+- version with async pipe (good)
+- version with cdref, takeuntildestroy and subscribe in the component constructor
+
+### Refactor async function with observable
+
+- of(undefined).pipe(tap, map, switchMap, catchError, finalize)
