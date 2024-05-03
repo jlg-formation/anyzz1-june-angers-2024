@@ -53,7 +53,7 @@ export class CreateComponent implements OnInit {
       this.isAdding = true;
       await lastValueFrom(timer(1000));
       await lastValueFrom(this.articleService.add(newArticle));
-      await this.articleService.load();
+      await lastValueFrom(this.articleService.load());
       await this.router.navigate(['..'], { relativeTo: this.route });
     } catch (err) {
       console.log('err: ', err);

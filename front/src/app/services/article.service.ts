@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { Observable, catchError, delay, of, switchMap } from 'rxjs';
+import { Observable, catchError, delay, map, of, switchMap } from 'rxjs';
 import { Article, NewArticle } from '../interfaces/article';
 
 const url = '/api/articles';
@@ -24,20 +24,21 @@ export class ArticleService {
     );
   }
 
-  async load() {
-    try {
-      this.errorMsg = '';
-      await this.http
-        .get<Article[]>(url)
-        .pipe(delay(1000))
-        .forEach((articles) => {
-          console.log('setting articles: ', articles);
-          this.articles.set(articles);
-        });
-    } catch (err) {
-      console.log('err: ', err);
-      this.errorMsg = 'Technical Error';
-    }
+  load(): Observable<void> {
+    return of(undefined).pipe(
+      switchMap(() => {
+        this.errorMsg = '';
+        return this.http.get<Article[]>(url);
+      }),
+      delay(1000),
+      map((articles) => {
+        this.articles.set(articles);
+      }),
+      catchError((err) => {
+        this.errorMsg = 'Erreur Technique';
+        return of(undefined);
+      })
+    );
   }
 
   remove(ids: string[]): Observable<void> {

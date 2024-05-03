@@ -43,7 +43,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.articleService.articles() === undefined) {
-      this.articleService.load();
+      this.articleService.load().subscribe();
     }
   }
 
@@ -51,7 +51,7 @@ export class ListComponent implements OnInit {
     try {
       this.errorMsg = '';
       this.isRefreshing = true;
-      await this.articleService.load();
+      await lastValueFrom(this.articleService.load());
     } catch (err) {
       console.log('err: ', err);
     } finally {
@@ -65,7 +65,7 @@ export class ListComponent implements OnInit {
       this.isRemoving = true;
       const ids = [...this.selectedArticles].map((a) => a.id);
       await lastValueFrom(this.articleService.remove(ids));
-      await this.articleService.load();
+      await lastValueFrom(this.articleService.load());
       this.selectedArticles.clear();
     } catch (err) {
       console.log('err: ', err);
