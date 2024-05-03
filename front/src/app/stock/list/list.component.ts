@@ -69,6 +69,7 @@ export class ListComponent implements OnInit {
         }),
         finalize(() => {
           this.isRefreshing = false;
+          this.selectedArticles.clear();
           this.cdref.markForCheck();
         })
       )
