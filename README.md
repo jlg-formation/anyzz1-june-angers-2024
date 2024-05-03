@@ -62,3 +62,8 @@
 ### Router guards
 
 - added guards on add page that redirect on legal page if more than 5 articles
+
+### Widget component
+
+- create a component with no input but an internal state : a clock.
+- use it in the legal mention
