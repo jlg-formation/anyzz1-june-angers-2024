@@ -1,4 +1,4 @@
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import {
@@ -20,7 +20,7 @@ import { blackListValidator } from '../../validators/black-list.validator';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
   standalone: true,
-  imports: [FontAwesomeModule, ReactiveFormsModule, AsyncPipe, JsonPipe],
+  imports: [FontAwesomeModule, ReactiveFormsModule, AsyncPipe],
 })
 export class CreateComponent implements OnInit {
   errorMsg = '';
