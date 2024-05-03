@@ -14,8 +14,7 @@ form {
       padding: 0.5em 1em;
 
       &.ng-invalid.ng-touched {
-        border: 0.05em dotted black;
-        outline: 0.05em dotted black;
+        border: 0.1em solid black;
         background: #eee;
       }
     }
