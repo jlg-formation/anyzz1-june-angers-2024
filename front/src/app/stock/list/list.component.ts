@@ -7,16 +7,17 @@ import {
   faRotateRight,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import { catchError, finalize, of, switchMap, tap } from 'rxjs';
+import { Observable, catchError, finalize, of, switchMap, tap } from 'rxjs';
 import { Article } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
+import { AsyncBtnComponent } from '../../widgets/async-btn/async-btn.component';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
   standalone: true,
-  imports: [RouterLink, FontAwesomeModule],
+  imports: [RouterLink, FontAwesomeModule, AsyncBtnComponent],
 })
 export class ListComponent implements OnInit {
   errorMsg = '';
@@ -50,56 +51,52 @@ export class ListComponent implements OnInit {
     }
   }
 
-  refresh() {
-    of(undefined)
-      .pipe(
-        switchMap(() => {
-          this.errorMsg = '';
-          this.isRefreshing = true;
-          return this.articleService.load();
-        }),
-        catchError((err) => {
-          console.log('err: ', err);
-          if (err instanceof Error) {
-            this.errorMsg = err.message;
-          } else {
-            this.errorMsg = 'Erreur Technique';
-          }
-          return of(undefined);
-        }),
-        finalize(() => {
-          this.isRefreshing = false;
-          this.selectedArticles.clear();
-          this.cdref.markForCheck();
-        })
-      )
-      .subscribe();
+  refresh(): Observable<void> {
+    return of(undefined).pipe(
+      switchMap(() => {
+        this.errorMsg = '';
+        this.isRefreshing = true;
+        return this.articleService.load();
+      }),
+      catchError((err) => {
+        console.log('err: ', err);
+        if (err instanceof Error) {
+          this.errorMsg = err.message;
+        } else {
+          this.errorMsg = 'Erreur Technique';
+        }
+        return of(undefined);
+      }),
+      finalize(() => {
+        this.isRefreshing = false;
+        this.selectedArticles.clear();
+        this.cdref.markForCheck();
+      })
+    );
   }
 
   remove() {
-    return of(undefined)
-      .pipe(
-        switchMap(() => {
-          this.errorMsg = '';
-          this.isRemoving = true;
-          const ids = [...this.selectedArticles].map((a) => a.id);
-          return this.articleService.remove(ids);
-        }),
-        switchMap(() => this.articleService.load()),
-        tap(() => {
-          this.selectedArticles.clear();
-        }),
-        catchError((err) => {
-          console.log('err: ', err);
-          this.errorMsg = 'Cannot suppress';
-          return of(undefined);
-        }),
-        finalize(() => {
-          this.isRemoving = false;
-          this.cdref.markForCheck();
-        })
-      )
-      .subscribe();
+    return of(undefined).pipe(
+      switchMap(() => {
+        this.errorMsg = '';
+        this.isRemoving = true;
+        const ids = [...this.selectedArticles].map((a) => a.id);
+        return this.articleService.remove(ids);
+      }),
+      switchMap(() => this.articleService.load()),
+      tap(() => {
+        this.selectedArticles.clear();
+      }),
+      catchError((err) => {
+        console.log('err: ', err);
+        this.errorMsg = 'Cannot suppress';
+        return of(undefined);
+      }),
+      finalize(() => {
+        this.isRemoving = false;
+        this.cdref.markForCheck();
+      })
+    );
   }
 
   select(a: Article) {
@@ -108,5 +105,9 @@ export class ListComponent implements OnInit {
       return;
     }
     this.selectedArticles.add(a);
+  }
+
+  setError(errorMsg: string) {
+    this.errorMsg = errorMsg;
   }
 }

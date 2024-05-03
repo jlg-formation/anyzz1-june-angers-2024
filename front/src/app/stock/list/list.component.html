@@ -5,23 +5,22 @@
     <p>Total articles : {{ getTotalArticles() }}</p>
 
     <nav>
-      <button title="Rafraîchir" (click)="refresh()" [disabled]="isRefreshing">
-        <fa-icon [icon]="faRotateRight" [spin]="isRefreshing"></fa-icon>
-      </button>
+      <app-async-btn
+        label="Rafraîchir"
+        [action]="refresh()"
+        [icon]="faRotateRight"
+        (error)="setError($event)"
+      />
       <a routerLink="create" class="button" title="Ajouter">
         <fa-icon [icon]="faPlus"></fa-icon>
       </a>
-      <button
-        title="Supprimer"
+      <app-async-btn
+        label="Supprimer"
+        [action]="remove()"
+        [icon]="faTrashAlt"
+        (error)="setError($event)"
         [hidden]="selectedArticles.size === 0"
-        (click)="remove()"
-        [disabled]="isRemoving"
-      >
-        <fa-icon
-          [icon]="isRemoving ? faCircleNotch : faTrashAlt"
-          [spin]="isRemoving"
-        ></fa-icon>
-      </button>
+      />
     </nav>
     <div class="error">
       @if (errorMsg !== '') {

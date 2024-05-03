@@ -75,4 +75,8 @@
 - of(undefined).pipe(tap, map, switchMap, catchError, finalize)
 - test with 400 responses (modify the back end for it can return 400 errors)
 - Recheck changeDetectorRef with error scenario
--
+
+### Create Component with @Input and @Output
+
+- create a async button component and use it in list component
+- use it also in the form
