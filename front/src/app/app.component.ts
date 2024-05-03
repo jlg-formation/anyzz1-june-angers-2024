@@ -6,7 +6,7 @@ import { FooterComponent } from './layout/footer/footer.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrl: './app.component.scss',
   standalone: true,
   imports: [HeaderComponent, BodyComponent, FooterComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,

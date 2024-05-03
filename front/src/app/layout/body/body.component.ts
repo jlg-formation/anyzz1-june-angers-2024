@@ -4,7 +4,7 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-body',
   templateUrl: './body.component.html',
-  styleUrls: ['./body.component.scss'],
+  styleUrl: './body.component.scss',
   standalone: true,
   imports: [RouterOutlet],
 })

@@ -50,3 +50,11 @@
 ### Passing the project with OnPush Strategy
 
 - putting OnPush on AppComponent.
+
+### Adding title on each page
+
+- using a strategy title service
+
+### StyleCSS
+
+- no more array anymore in decorator metadata

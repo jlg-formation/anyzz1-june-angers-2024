@@ -13,7 +13,7 @@ import { ArticleService } from '../../services/article.service';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
+  styleUrl: './list.component.scss',
   standalone: true,
   imports: [RouterLink, FontAwesomeModule],
 })
