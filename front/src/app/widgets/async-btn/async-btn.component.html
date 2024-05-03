@@ -1,6 +1,12 @@
-<button [title]="label" (click)="doAction()" [disabled]="isDoing()">
+<button
+  [title]="label"
+  (click)="doAction()"
+  [disabled]="isDoing() || disabled"
+  [class.primary]="isPrimary"
+>
   <fa-icon
     [icon]="isDoing() ? faCircleNotch : icon"
     [spin]="isDoing()"
   ></fa-icon>
+  <ng-content></ng-content>
 </button>

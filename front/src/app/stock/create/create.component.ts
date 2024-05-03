@@ -1,6 +1,10 @@
-import { AsyncPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+} from '@angular/core';
 import {
   NonNullableFormBuilder,
   ReactiveFormsModule,
@@ -9,18 +13,29 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { catchError, delay, finalize, of, switchMap, tap } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  delay,
+  finalize,
+  map,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { NewArticle } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
 import { getErrors } from '../../utils/errors.utils';
 import { blackListValidator } from '../../validators/black-list.validator';
+import { AsyncBtnComponent } from '../../widgets/async-btn/async-btn.component';
 
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss',
   standalone: true,
-  imports: [FontAwesomeModule, ReactiveFormsModule, AsyncPipe],
+  imports: [FontAwesomeModule, ReactiveFormsModule, AsyncBtnComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateComponent {
   errorMsg = '';
@@ -46,33 +61,34 @@ export class CreateComponent {
     private cdref: ChangeDetectorRef
   ) {}
 
-  submit() {
-    return of(undefined)
-      .pipe(
-        tap(() => {
-          this.isAdding = true;
-        }),
-        delay(1000),
-        switchMap(() => {
-          const newArticle: NewArticle = this.f.getRawValue();
-          return this.articleService.add(newArticle);
-        }),
-        switchMap(() => this.articleService.load()),
-        switchMap(() =>
-          this.router.navigate(['..'], { relativeTo: this.route })
-        ),
-        catchError((err) => {
-          console.log('err: ', err);
-          if (err instanceof Error) {
-            this.errorMsg = err.message;
-          }
-          return of(undefined);
-        }),
-        finalize(() => {
-          this.isAdding = false;
-          this.cdref.markForCheck();
-        })
-      )
-      .subscribe();
+  submit(): Observable<void> {
+    return of(undefined).pipe(
+      tap(() => {
+        this.isAdding = true;
+      }),
+      delay(1000),
+      switchMap(() => {
+        const newArticle: NewArticle = this.f.getRawValue();
+        return this.articleService.add(newArticle);
+      }),
+      switchMap(() => this.articleService.load()),
+      switchMap(() => this.router.navigate(['..'], { relativeTo: this.route })),
+      catchError((err) => {
+        console.log('err: ', err);
+        if (err instanceof Error) {
+          this.errorMsg = err.message;
+        }
+        return of(undefined);
+      }),
+      finalize(() => {
+        this.isAdding = false;
+        this.cdref.markForCheck();
+      }),
+      map(() => {})
+    );
+  }
+
+  setError(errorMsg: string) {
+    this.errorMsg = errorMsg;
   }
 }

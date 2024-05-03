@@ -31,7 +31,14 @@ export class AsyncBtnComponent {
   @Output()
   error = new EventEmitter<string>();
 
-  doAction() {
+  @Input()
+  disabled = false;
+
+  @Input()
+  isPrimary = false;
+
+  doAction(...args: unknown[]) {
+    console.log('args: ', args);
     of(undefined)
       .pipe(
         tap(() => {
