@@ -73,3 +73,6 @@
 ### Refactor async function with observable
 
 - of(undefined).pipe(tap, map, switchMap, catchError, finalize)
+- test with 400 responses (modify the back end for it can return 400 errors)
+- Recheck changeDetectorRef with error scenario
+-

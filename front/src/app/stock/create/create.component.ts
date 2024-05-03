@@ -28,7 +28,7 @@ export class CreateComponent {
     name: [
       'Truc',
       [Validators.required],
-      [blackListValidator(inject(HttpClient), inject(ChangeDetectorRef))],
+      [blackListValidator(inject(HttpClient), this.cdref)],
     ],
     price: [0, [Validators.required]],
     qty: [1, [Validators.required]],
@@ -42,7 +42,8 @@ export class CreateComponent {
     private fb: NonNullableFormBuilder,
     private articleService: ArticleService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdref: ChangeDetectorRef
   ) {}
 
   submit() {
@@ -69,6 +70,7 @@ export class CreateComponent {
         }),
         finalize(() => {
           this.isAdding = false;
+          this.cdref.markForCheck();
         })
       )
       .subscribe();
