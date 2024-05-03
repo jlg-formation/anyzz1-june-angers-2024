@@ -46,3 +46,7 @@
 - define a signal from an existing observable
 - define a signal from a value
 - define a computed from one or many signals and show the performance gain.
+
+### Passing the project with OnPush Strategy
+
+- putting OnPush on AppComponent.

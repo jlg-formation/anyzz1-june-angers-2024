@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import {
   NonNullableFormBuilder,
   ReactiveFormsModule,
@@ -28,7 +28,7 @@ export class CreateComponent implements OnInit {
     name: [
       'Truc',
       [Validators.required],
-      [blackListValidator(inject(HttpClient))],
+      [blackListValidator(inject(HttpClient), inject(ChangeDetectorRef))],
     ],
     price: [0, [Validators.required]],
     qty: [1, [Validators.required]],
