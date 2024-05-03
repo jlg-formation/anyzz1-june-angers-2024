@@ -7,6 +7,7 @@ import {
   faRotateRight,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import { lastValueFrom } from 'rxjs';
 import { Article } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
 
@@ -63,7 +64,7 @@ export class ListComponent implements OnInit {
       this.errorMsg = '';
       this.isRemoving = true;
       const ids = [...this.selectedArticles].map((a) => a.id);
-      await this.articleService.remove(ids);
+      await lastValueFrom(this.articleService.remove(ids));
       await this.articleService.load();
       this.selectedArticles.clear();
     } catch (err) {
