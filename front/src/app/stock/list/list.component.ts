@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
@@ -27,16 +27,18 @@ export class ListComponent implements OnInit {
   isRemoving = false;
   selectedArticles = new Set<Article>();
 
-  constructor(public articleService: ArticleService) {}
+  constructor(public articleService: ArticleService) {
+    console.log('instantiate list component');
+  }
 
-  getTotalArticles() {
+  getTotalArticles = computed(() => {
     console.log('getTotalArticles');
     const articles = this.articleService.articles();
     if (articles === undefined) {
       return 0;
     }
     return articles.length;
-  }
+  });
 
   ngOnInit(): void {
     if (this.articleService.articles() === undefined) {
