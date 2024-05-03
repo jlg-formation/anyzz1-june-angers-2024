@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Signal, signal } from '@angular/core';
 import { Article, NewArticle } from '../interfaces/article';
 import { HttpClient } from '@angular/common/http';
 import { delay, lastValueFrom, catchError, switchMap, timer } from 'rxjs';
@@ -9,7 +9,7 @@ const url = '/api/articles';
   providedIn: 'root',
 })
 export class ArticleService {
-  articles: Article[] | undefined;
+  articles = signal<Article[] | undefined>(undefined);
   errorMsg = '';
 
   constructor(private http: HttpClient) {}
@@ -32,7 +32,8 @@ export class ArticleService {
         .get<Article[]>(url)
         .pipe(delay(1000))
         .forEach((articles) => {
-          this.articles = articles;
+          console.log('setting articles: ', articles);
+          this.articles.set(articles);
         });
     } catch (err) {
       console.log('err: ', err);

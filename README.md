@@ -44,4 +44,4 @@
 ### Signal and computed
 
 - define a signal from an existing observable
--
+- define a signal from a value
