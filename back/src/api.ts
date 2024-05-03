@@ -26,6 +26,10 @@ app.use(json());
 
 app.post("/articles", (req, res) => {
   const newArticle: NewArticle = req.body;
+  if (newArticle.name === "bad") {
+    res.status(400).end("Cannot add bad article");
+    return;
+  }
   const id = generateId();
   const article = { ...newArticle, id };
   articles.push(article);
@@ -34,6 +38,10 @@ app.post("/articles", (req, res) => {
 
 app.delete("/articles", (req, res) => {
   const ids: string[] = req.body;
+  if (ids.length === 3) {
+    res.status(400).end("cannot delete 3 items at same time");
+    return;
+  }
   articles = articles.filter((a) => !ids.includes(a.id));
   res.status(204).end();
 });
