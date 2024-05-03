@@ -23,8 +23,8 @@ export const getErrors = <T extends { [K in keyof T]: AbstractControl<any> }>(
   };
   for (const name in f.controls) {
     const control = f.controls[name];
-    result[name as keyof T] = control.valueChanges.pipe(
-      startWith(control.value),
+    result[name as keyof T] = control.statusChanges.pipe(
+      startWith(control.status),
       map((value) => {
         console.log('value: ', value);
         return getMessage(control.errors);

@@ -38,4 +38,10 @@ app.delete("/articles", (req, res) => {
   res.status(204).end();
 });
 
+const blackListWords = new Set(["zut", "crotte"]);
+app.get("/validation", (req, res) => {
+  const word = req.query.word as string;
+  res.json(!blackListWords.has(word));
+});
+
 export const api = app;

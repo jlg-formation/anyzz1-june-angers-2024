@@ -1,4 +1,5 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import {
   NonNullableFormBuilder,
@@ -11,7 +12,6 @@ import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { lastValueFrom, timer } from 'rxjs';
 import { NewArticle } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
-import { BlacklistService } from '../../services/blacklist.service';
 import { getErrors } from '../../utils/errors.utils';
 import { blackListValidator } from '../../validators/black-list.validator';
 
@@ -20,14 +20,15 @@ import { blackListValidator } from '../../validators/black-list.validator';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
   standalone: true,
-  imports: [FontAwesomeModule, ReactiveFormsModule, AsyncPipe],
+  imports: [FontAwesomeModule, ReactiveFormsModule, AsyncPipe, JsonPipe],
 })
 export class CreateComponent implements OnInit {
   errorMsg = '';
   f = this.fb.group({
     name: [
       'Truc',
-      [Validators.required, blackListValidator(inject(BlacklistService))],
+      [Validators.required],
+      [blackListValidator(inject(HttpClient))],
     ],
     price: [0, [Validators.required]],
     qty: [1, [Validators.required]],
