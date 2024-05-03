@@ -58,3 +58,7 @@
 ### StyleCSS
 
 - no more array anymore in decorator metadata
+
+### Router guards
+
+- added guards on add page that redirect on legal page if more than 5 articles
