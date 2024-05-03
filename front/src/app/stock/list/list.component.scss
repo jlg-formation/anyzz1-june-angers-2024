@@ -1,10 +1,9 @@
 div.content {
   display: flex;
   flex-flow: column;
-  gap: 0.5em;
 
   div.error {
-    height: 3em;
+    height: 2em;
     display: flex;
     align-items: center;
     justify-content: center;

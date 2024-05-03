@@ -1,11 +1,9 @@
 <main>
   <h1>Liste des articles</h1>
+
   <div class="content">
-    <div class="error">
-      @if (errorMsg !== '') {
-      <span>Erreur: {{ errorMsg }}</span>
-      }
-    </div>
+    <p>Total articles : {{ getTotalArticles() }}</p>
+
     <nav>
       <button title="Rafraîchir" (click)="refresh()" [disabled]="isRefreshing">
         <fa-icon [icon]="faRotateRight" [spin]="isRefreshing"></fa-icon>
@@ -25,6 +23,11 @@
         ></fa-icon>
       </button>
     </nav>
+    <div class="error">
+      @if (errorMsg !== '') {
+      <span>Erreur: {{ errorMsg }}</span>
+      }
+    </div>
     <table>
       <thead>
         <tr>

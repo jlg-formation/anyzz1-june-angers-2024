@@ -18,16 +18,25 @@ import { ArticleService } from '../../services/article.service';
   imports: [RouterLink, FontAwesomeModule],
 })
 export class ListComponent implements OnInit {
+  errorMsg = '';
   faCircleNotch = faCircleNotch;
   faPlus = faPlus;
   faRotateRight = faRotateRight;
   faTrashAlt = faTrashAlt;
   isRefreshing = false;
-  selectedArticles = new Set<Article>();
   isRemoving = false;
-  errorMsg = '';
+  selectedArticles = new Set<Article>();
 
   constructor(public articleService: ArticleService) {}
+
+  getTotalArticles() {
+    console.log('getTotalArticles');
+    const articles = this.articleService.articles();
+    if (articles === undefined) {
+      return 0;
+    }
+    return articles.length;
+  }
 
   ngOnInit(): void {
     if (this.articleService.articles() === undefined) {
