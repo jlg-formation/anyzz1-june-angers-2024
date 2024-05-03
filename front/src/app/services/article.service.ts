@@ -1,14 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import {
-  Observable,
-  catchError,
-  delay,
-  lastValueFrom,
-  of,
-  switchMap,
-  timer,
-} from 'rxjs';
+import { Observable, catchError, delay, of, switchMap } from 'rxjs';
 import { Article, NewArticle } from '../interfaces/article';
 
 const url = '/api/articles';
@@ -51,11 +43,17 @@ export class ArticleService {
   remove(ids: string[]): Observable<void> {
     return of(undefined).pipe(
       delay(1000),
-      switchMap(() =>
-        this.http.delete<void>(url, {
+      switchMap(() => {
+        if (ids.length === 2) {
+          window.alert(
+            'Règle de business bizarre: tu peux pas effacer deux articles à la fois.'
+          );
+          return of(undefined);
+        }
+        return this.http.delete<void>(url, {
           body: ids,
-        })
-      ),
+        });
+      }),
       catchError((err) => {
         console.log('err: ', err);
         throw new Error('Technical error');
