@@ -80,3 +80,4 @@
 
 - create a async button component and use it in list component
 - use it also in the form
+- use @Input alias and transform

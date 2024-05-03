@@ -38,7 +38,7 @@
         [icon]="faPlus"
         [disabled]="f.invalid || f.pending"
         (error)="setError($event)"
-        [isPrimary]="true"
+        primary
         [action]="submit()"
       >
         <span>Ajouter</span>

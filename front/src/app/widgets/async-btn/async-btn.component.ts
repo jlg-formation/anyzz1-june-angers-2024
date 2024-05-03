@@ -34,7 +34,10 @@ export class AsyncBtnComponent {
   @Input()
   disabled = false;
 
-  @Input()
+  @Input({
+    alias: 'primary',
+    transform: (value: string) => value === '',
+  })
   isPrimary = false;
 
   doAction(...args: unknown[]) {
