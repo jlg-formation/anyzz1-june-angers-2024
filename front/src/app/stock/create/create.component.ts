@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import {
   NonNullableFormBuilder,
   ReactiveFormsModule,
@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { lastValueFrom, timer } from 'rxjs';
+import { catchError, delay, finalize, of, switchMap, tap } from 'rxjs';
 import { NewArticle } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
 import { getErrors } from '../../utils/errors.utils';
@@ -22,7 +22,7 @@ import { blackListValidator } from '../../validators/black-list.validator';
   standalone: true,
   imports: [FontAwesomeModule, ReactiveFormsModule, AsyncPipe],
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent {
   errorMsg = '';
   f = this.fb.group({
     name: [
@@ -45,23 +45,32 @@ export class CreateComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
-
-  async submit() {
-    const newArticle: NewArticle = this.f.getRawValue();
-    try {
-      this.isAdding = true;
-      await lastValueFrom(timer(1000));
-      await lastValueFrom(this.articleService.add(newArticle));
-      await lastValueFrom(this.articleService.load());
-      await this.router.navigate(['..'], { relativeTo: this.route });
-    } catch (err) {
-      console.log('err: ', err);
-      if (err instanceof Error) {
-        this.errorMsg = err.message;
-      }
-    } finally {
-      this.isAdding = false;
-    }
+  submit() {
+    return of(undefined)
+      .pipe(
+        tap(() => {
+          this.isAdding = true;
+        }),
+        delay(1000),
+        switchMap(() => {
+          const newArticle: NewArticle = this.f.getRawValue();
+          return this.articleService.add(newArticle);
+        }),
+        switchMap(() => this.articleService.load()),
+        switchMap(() =>
+          this.router.navigate(['..'], { relativeTo: this.route })
+        ),
+        catchError((err) => {
+          console.log('err: ', err);
+          if (err instanceof Error) {
+            this.errorMsg = err.message;
+          }
+          return of(undefined);
+        }),
+        finalize(() => {
+          this.isAdding = false;
+        })
+      )
+      .subscribe();
   }
 }
