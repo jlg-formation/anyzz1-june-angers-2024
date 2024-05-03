@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AsyncValidatorFn } from '@angular/forms';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, delay, map, of, switchMap } from 'rxjs';
 
 const url = '/api/validation';
 
@@ -9,6 +9,7 @@ export const blackListValidator: (http: HttpClient) => AsyncValidatorFn =
     console.log('blackList validation', control);
     const params = new HttpParams().set('word', control.value);
     return of(undefined).pipe(
+      delay(1000),
       switchMap(() =>
         http.get<boolean>(url, {
           params,

@@ -38,3 +38,5 @@
 - error management in a field
 
 - async validator with http service
+- add debounce to async validator
+- add disabled on submit button when form is pending
