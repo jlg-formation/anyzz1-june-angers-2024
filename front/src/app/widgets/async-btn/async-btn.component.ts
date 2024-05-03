@@ -2,8 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  HostAttributeToken,
   Input,
   Output,
+  inject,
   signal,
 } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -34,11 +36,8 @@ export class AsyncBtnComponent {
   @Input()
   disabled = false;
 
-  @Input({
-    alias: 'primary',
-    transform: (value: string) => value === '',
-  })
-  isPrimary = false;
+  isPrimary =
+    inject(new HostAttributeToken('primary'), { optional: true }) !== null;
 
   doAction(...args: unknown[]) {
     console.log('args: ', args);
