@@ -3,8 +3,8 @@ import { CreateComponent } from './create/create.component';
 import { ListComponent } from './list/list.component';
 
 const stockRoutes: Routes = [
-  { path: '', component: ListComponent },
-  { path: 'create', component: CreateComponent },
+  { path: '', component: ListComponent, title: 'Liste des articles' },
+  { path: 'create', component: CreateComponent, title: "Ajout d'un article" },
 ];
 
 export default stockRoutes;
