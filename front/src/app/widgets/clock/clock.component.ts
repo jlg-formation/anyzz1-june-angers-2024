@@ -1,6 +1,11 @@
 import { AsyncPipe, DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { interval, map } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { interval, tap } from 'rxjs';
 
 @Component({
   selector: 'app-clock',
@@ -11,11 +16,18 @@ import { interval, map } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClockComponent {
-  realtime$ = interval(1000).pipe(
-    map(() => {
-      const now = new Date();
-      console.log('now: ', now);
-      return now;
-    })
-  );
+  realtime = new Date();
+  constructor(private cdref: ChangeDetectorRef) {
+    interval(1000)
+      .pipe(
+        tap(() => {
+          const now = new Date();
+          console.log('now: ', now);
+          this.realtime = now;
+          this.cdref.markForCheck();
+        }),
+        takeUntilDestroyed()
+      )
+      .subscribe();
+  }
 }
