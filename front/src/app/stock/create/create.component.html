@@ -6,7 +6,7 @@
       <input type="text" formControlName="name" />
       <span class="error">
         @if (f.controls.name.touched) {
-        {{ errors.name | async }}
+        {{ errors.name() }}
         }
       </span>
     </label>
@@ -15,7 +15,7 @@
       <input type="number" formControlName="price" />
       <span class="error">
         @if (f.controls.price.touched) {
-        {{ errors.price | async }}
+        {{ errors.price() }}
         }
       </span>
     </label>
@@ -24,7 +24,7 @@
       <input type="number" formControlName="qty" />
       <span class="error">
         @if (f.controls.qty.touched) {
-        {{ errors.qty | async }}
+        {{ errors.qty() }}
         }
       </span>
     </label>

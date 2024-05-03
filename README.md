@@ -40,3 +40,8 @@
 - async validator with http service
 - add debounce to async validator
 - add disabled on submit button when form is pending
+
+### Signal and computed
+
+- define a signal from an existing observable
+-
