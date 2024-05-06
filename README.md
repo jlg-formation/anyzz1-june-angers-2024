@@ -90,3 +90,5 @@
 ### @defer
 
 - refactor ListComponent to show the loading with @defer
+
+### Adding the SSR version of the app
