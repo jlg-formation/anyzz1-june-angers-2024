@@ -3,7 +3,7 @@ import { Injectable, signal } from '@angular/core';
 import { Observable, catchError, delay, map, of, switchMap } from 'rxjs';
 import { Article, NewArticle } from '../interfaces/article';
 
-const url = '/api/articles';
+const url = 'http://localhost:3000' + '/api/articles';
 
 @Injectable({
   providedIn: 'root',

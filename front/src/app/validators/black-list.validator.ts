@@ -3,7 +3,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { AsyncValidatorFn } from '@angular/forms';
 import { catchError, delay, finalize, map, of, switchMap } from 'rxjs';
 
-const url = '/api/validation';
+const url = 'http://localhost:3000' + '/api/validation';
 
 export const blackListValidator: (
   http: HttpClient,
