@@ -36,7 +36,14 @@
         </tr>
       </thead>
       <tbody>
-        @if (articleService.articles() === undefined) {
+        @defer (when articleService.articles() !== undefined) { @for (a of
+        articleService.articles(); track a.id) {
+        <tr [class.selected]="selectedArticles.has(a)" (click)="select(a)">
+          <td class="name">{{ a.name }}</td>
+          <td class="price">{{ a.price }} €</td>
+          <td class="qty">{{ a.qty }}</td>
+        </tr>
+        } } @placeholder {
         <tr>
           @if (articleService.errorMsg === '') {
           <td colspan="3">Loading...</td>
@@ -46,13 +53,7 @@
           </td>
           }
         </tr>
-        } @else { @for (a of articleService.articles(); track a.id) {
-        <tr [class.selected]="selectedArticles.has(a)" (click)="select(a)">
-          <td class="name">{{ a.name }}</td>
-          <td class="price">{{ a.price }} €</td>
-          <td class="qty">{{ a.qty }}</td>
-        </tr>
-        } }
+        }
       </tbody>
     </table>
   </div>
