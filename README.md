@@ -82,3 +82,11 @@
 - use it also in the form
 - use @Input alias and transform
 - use @Attribute or HostAttributeToken
+
+### Component lifecycle
+
+- use ngDoCheck to make an observable (subject) on change detection, this can be used for detecting the control untouched to control touched
+
+### @defer
+
+- refactor ListComponent to show the loading with @defer
