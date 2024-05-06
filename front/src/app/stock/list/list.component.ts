@@ -32,9 +32,7 @@ export class ListComponent implements OnInit {
   constructor(
     public articleService: ArticleService,
     private cdref: ChangeDetectorRef
-  ) {
-    console.log('instantiate list component');
-  }
+  ) {}
 
   getTotalArticles = computed(() => {
     console.log('getTotalArticles');

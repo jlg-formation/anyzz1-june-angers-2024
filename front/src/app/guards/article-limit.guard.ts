@@ -1,14 +1,9 @@
 import { inject } from '@angular/core';
-import {
-  CanActivateFn,
-  UrlTree,
-  createUrlTreeFromSnapshot,
-} from '@angular/router';
-import { ArticleService } from '../services/article.service';
+import { CanActivateFn, createUrlTreeFromSnapshot } from '@angular/router';
 import { of, switchMap } from 'rxjs';
+import { ArticleService } from '../services/article.service';
 
 export const articleLimitGuard: CanActivateFn = (route, state) => {
-  console.log('articleLimitGuard');
   const articleService = inject(ArticleService);
 
   return of(undefined).pipe(

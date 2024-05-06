@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DoCheck,
   inject,
 } from '@angular/core';
 import {
@@ -15,6 +16,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
 import {
   Observable,
+  Subject,
   catchError,
   delay,
   finalize,
@@ -25,7 +27,7 @@ import {
 } from 'rxjs';
 import { NewArticle } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
-import { getErrors } from '../../utils/errors.utils';
+import { FormGroupArgs, getErrors } from '../../utils/errors.utils';
 import { blackListValidator } from '../../validators/black-list.validator';
 import { AsyncBtnComponent } from '../../widgets/async-btn/async-btn.component';
 
@@ -37,9 +39,10 @@ import { AsyncBtnComponent } from '../../widgets/async-btn/async-btn.component';
   imports: [FontAwesomeModule, ReactiveFormsModule, AsyncBtnComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateComponent {
+export class CreateComponent implements DoCheck {
+  doCheck = new Subject<void>();
   errorMsg = '';
-  f = this.fb.group({
+  f = this.fb.group<FormGroupArgs<NewArticle>>({
     name: [
       'Truc',
       [Validators.required],
@@ -48,7 +51,7 @@ export class CreateComponent {
     price: [0, [Validators.required]],
     qty: [1, [Validators.required]],
   });
-  errors = getErrors(this.f);
+  fErrors = getErrors(this.f, this.doCheck);
   faCircleNotch = faCircleNotch;
   faPlus = faPlus;
   isAdding = false;
@@ -60,6 +63,14 @@ export class CreateComponent {
     private route: ActivatedRoute,
     private cdref: ChangeDetectorRef
   ) {}
+
+  ngDoCheck(): void {
+    this.doCheck.next();
+  }
+
+  setError(errorMsg: string) {
+    this.errorMsg = errorMsg;
+  }
 
   submit(): Observable<void> {
     return of(undefined).pipe(
@@ -86,9 +97,5 @@ export class CreateComponent {
       }),
       map(() => {})
     );
-  }
-
-  setError(errorMsg: string) {
-    this.errorMsg = errorMsg;
   }
 }

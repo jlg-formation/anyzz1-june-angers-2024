@@ -5,27 +5,21 @@
       <span>Nom</span>
       <input type="text" formControlName="name" />
       <span class="error">
-        @if (f.controls.name.touched) {
-        {{ errors.name() }}
-        }
+        {{ fErrors.name() }}
       </span>
     </label>
     <label>
       <span>Prix</span>
       <input type="number" formControlName="price" />
       <span class="error">
-        @if (f.controls.price.touched) {
-        {{ errors.price() }}
-        }
+        {{ fErrors.price() }}
       </span>
     </label>
     <label>
       <span>Quantité</span>
       <input type="number" formControlName="qty" />
       <span class="error">
-        @if (f.controls.qty.touched) {
-        {{ errors.qty() }}
-        }
+        {{ fErrors.qty() }}
       </span>
     </label>
     <div class="error">

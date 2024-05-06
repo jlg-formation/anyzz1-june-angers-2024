@@ -9,7 +9,6 @@ export const blackListValidator: (
   http: HttpClient,
   cdRef: ChangeDetectorRef
 ) => AsyncValidatorFn = (http, cdRef) => (control) => {
-  console.log('blackList validation', control);
   const params = new HttpParams().set('word', control.value);
   return of(undefined).pipe(
     delay(1000),
