@@ -35,7 +35,6 @@ export class ListComponent implements OnInit {
   ) {}
 
   getTotalArticles = computed(() => {
-    console.log('getTotalArticles');
     const articles = this.articleService.articles();
     if (articles === undefined) {
       return 0;
@@ -57,7 +56,6 @@ export class ListComponent implements OnInit {
         return this.articleService.load();
       }),
       catchError((err) => {
-        console.log('err: ', err);
         if (err instanceof Error) {
           this.errorMsg = err.message;
         } else {
@@ -85,8 +83,7 @@ export class ListComponent implements OnInit {
       tap(() => {
         this.selectedArticles.clear();
       }),
-      catchError((err) => {
-        console.log('err: ', err);
+      catchError(() => {
         this.errorMsg = 'Cannot suppress';
         return of(undefined);
       }),

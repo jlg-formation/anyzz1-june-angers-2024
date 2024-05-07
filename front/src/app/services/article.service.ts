@@ -22,8 +22,7 @@ export class ArticleService {
   add(newArticle: NewArticle): Observable<void> {
     return of(undefined).pipe(
       switchMap(() => this.http.post<void>(this.url, newArticle)),
-      catchError((err) => {
-        console.log('err: ', err);
+      catchError(() => {
         throw new Error('Erreur Technique');
       })
     );
@@ -39,7 +38,7 @@ export class ArticleService {
       map((articles) => {
         this.articles.set(articles);
       }),
-      catchError((err) => {
+      catchError(() => {
         this.errorMsg = 'Erreur Technique';
         return of(undefined);
       })
@@ -60,8 +59,7 @@ export class ArticleService {
           body: ids,
         });
       }),
-      catchError((err) => {
-        console.log('err: ', err);
+      catchError(() => {
         throw new Error('Technical error');
       })
     );

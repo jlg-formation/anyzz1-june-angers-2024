@@ -3,7 +3,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { Observable, map, merge, startWith } from 'rxjs';
 
-export type FormGroupArgs<T extends {}> = {
+export type FormGroupArgs<T extends object> = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key in keyof T]: any[];
 };
 
@@ -20,7 +21,9 @@ export const getMessage = (errors: ValidationErrors | null) => {
   return '';
 };
 
-export const getErrors = <T extends { [K in keyof T]: AbstractControl<any> }>(
+export const getErrors = <
+  T extends { [K in keyof T]: AbstractControl<unknown> }
+>(
   f: FormGroup<T>,
   doCheck: Observable<void>
 ): { [keys in keyof T]: Signal<string | undefined> } => {
@@ -32,8 +35,7 @@ export const getErrors = <T extends { [K in keyof T]: AbstractControl<any> }>(
     result[name as keyof T] = toSignal(
       merge(control.statusChanges, doCheck).pipe(
         startWith(control.status),
-        map((value) => {
-          console.log('value: ', value);
+        map(() => {
           if (control.untouched) {
             return '';
           }

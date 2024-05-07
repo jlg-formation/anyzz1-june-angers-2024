@@ -92,7 +92,6 @@ export class CreateComponent implements DoCheck {
       switchMap(() => this.articleService.load()),
       switchMap(() => this.router.navigate(['..'], { relativeTo: this.route })),
       catchError((err) => {
-        console.log('err: ', err);
         if (err instanceof Error) {
           this.errorMsg = err.message;
         }

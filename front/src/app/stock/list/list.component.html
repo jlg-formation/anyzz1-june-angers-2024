@@ -9,7 +9,7 @@
         label="Rafraîchir"
         [action]="refresh()"
         [icon]="faRotateRight"
-        (error)="setError($event)"
+        (setError)="setError($event)"
       />
       <a routerLink="create" class="button" title="Ajouter">
         <fa-icon [icon]="faPlus"></fa-icon>
@@ -18,7 +18,7 @@
         label="Supprimer"
         [action]="remove()"
         [icon]="faTrashAlt"
-        (error)="setError($event)"
+        (setError)="setError($event)"
         [hidden]="selectedArticles.size === 0"
       />
     </nav>

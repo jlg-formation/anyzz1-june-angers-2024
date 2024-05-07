@@ -31,7 +31,7 @@
       <app-async-btn
         [icon]="faPlus"
         [disabled]="f.invalid || f.pending"
-        (error)="setError($event)"
+        (setError)="setError($event)"
         primary
         [action]="submit()"
       >

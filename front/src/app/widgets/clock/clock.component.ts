@@ -26,7 +26,6 @@ export class ClockComponent {
           tap(() => {
             this.ngZone.run(() => {
               const now = new Date();
-              console.log('now: ', now);
               this.realtime = now;
               this.cdref.markForCheck();
             });

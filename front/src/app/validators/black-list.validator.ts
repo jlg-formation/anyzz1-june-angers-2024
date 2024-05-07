@@ -18,7 +18,6 @@ export const blackListValidator: (
       })
     ),
     map((isValid) => {
-      console.log('isValid: ', isValid);
       if (isValid) {
         return null;
       }

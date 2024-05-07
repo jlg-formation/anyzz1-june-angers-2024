@@ -31,7 +31,7 @@ export class AsyncBtnComponent {
   action: Observable<void> = of(undefined);
 
   @Output()
-  error = new EventEmitter<string>();
+  setError = new EventEmitter<string>();
 
   @Input()
   disabled = false;
@@ -39,21 +39,19 @@ export class AsyncBtnComponent {
   isPrimary =
     inject(new HostAttributeToken('primary'), { optional: true }) !== null;
 
-  doAction(...args: unknown[]) {
-    console.log('args: ', args);
+  doAction() {
     of(undefined)
       .pipe(
         tap(() => {
           this.isDoing.set(true);
-          this.error.emit('');
+          this.setError.emit('');
         }),
         switchMap(() => this.action),
         catchError((err) => {
-          console.log('err: ', err);
           if (err instanceof Error) {
-            this.error.emit(err.message);
+            this.setError.emit(err.message);
           } else {
-            this.error.emit('Erreur Technique');
+            this.setError.emit('Erreur Technique');
           }
           return of(undefined);
         }),

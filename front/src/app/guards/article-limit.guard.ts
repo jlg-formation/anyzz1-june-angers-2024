@@ -3,7 +3,7 @@ import { CanActivateFn, createUrlTreeFromSnapshot } from '@angular/router';
 import { of, switchMap } from 'rxjs';
 import { ArticleService } from '../services/article.service';
 
-export const articleLimitGuard: CanActivateFn = (route, state) => {
+export const articleLimitGuard: CanActivateFn = (route) => {
   const articleService = inject(ArticleService);
 
   return of(undefined).pipe(
