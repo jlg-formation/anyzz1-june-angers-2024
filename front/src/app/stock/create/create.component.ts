@@ -30,6 +30,7 @@ import { ArticleService } from '../../services/article.service';
 import { FormGroupArgs, getErrors } from '../../utils/errors.utils';
 import { blackListValidator } from '../../validators/black-list.validator';
 import { AsyncBtnComponent } from '../../widgets/async-btn/async-btn.component';
+import { API_SERVER_URL } from '../../tokens/api-server-url.token';
 
 @Component({
   selector: 'app-create',
@@ -46,7 +47,13 @@ export class CreateComponent implements DoCheck {
     name: [
       'Truc',
       [Validators.required],
-      [blackListValidator(inject(HttpClient), this.cdref)],
+      [
+        blackListValidator(
+          inject(HttpClient),
+          this.cdref,
+          inject(API_SERVER_URL)
+        ),
+      ],
     ],
     price: [0, [Validators.required]],
     qty: [1, [Validators.required]],

@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { Inject, Injectable, signal } from '@angular/core';
 import { Observable, catchError, delay, map, of, switchMap } from 'rxjs';
 import { Article, NewArticle } from '../interfaces/article';
+import { API_SERVER_URL } from '../tokens/api-server-url.token';
 
-const url = 'http://localhost:3000' + '/api/articles';
+const path = '/api/articles';
 
 @Injectable({
   providedIn: 'root',
@@ -11,12 +12,16 @@ const url = 'http://localhost:3000' + '/api/articles';
 export class ArticleService {
   articles = signal<Article[] | undefined>(undefined);
   errorMsg = '';
+  url = this.apiServerUrl + path;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(API_SERVER_URL) private apiServerUrl: string
+  ) {}
 
   add(newArticle: NewArticle): Observable<void> {
     return of(undefined).pipe(
-      switchMap(() => this.http.post<void>(url, newArticle)),
+      switchMap(() => this.http.post<void>(this.url, newArticle)),
       catchError((err) => {
         console.log('err: ', err);
         throw new Error('Erreur Technique');
@@ -28,7 +33,7 @@ export class ArticleService {
     return of(undefined).pipe(
       switchMap(() => {
         this.errorMsg = '';
-        return this.http.get<Article[]>(url);
+        return this.http.get<Article[]>(this.url);
       }),
       delay(1000),
       map((articles) => {
@@ -51,7 +56,7 @@ export class ArticleService {
           );
           return of(undefined);
         }
-        return this.http.delete<void>(url, {
+        return this.http.delete<void>(this.url, {
           body: ids,
         });
       }),

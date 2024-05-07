@@ -3,12 +3,12 @@ import { ChangeDetectorRef } from '@angular/core';
 import { AsyncValidatorFn } from '@angular/forms';
 import { catchError, delay, finalize, map, of, switchMap } from 'rxjs';
 
-const url = 'http://localhost:3000' + '/api/validation';
-
 export const blackListValidator: (
   http: HttpClient,
-  cdRef: ChangeDetectorRef
-) => AsyncValidatorFn = (http, cdRef) => (control) => {
+  cdRef: ChangeDetectorRef,
+  apiServerUrl: string
+) => AsyncValidatorFn = (http, cdRef, apiServerUrl) => (control) => {
+  const url = apiServerUrl + '/api/validation';
   const params = new HttpParams().set('word', control.value);
   return of(undefined).pipe(
     delay(1000),
