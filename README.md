@@ -103,3 +103,23 @@
 
 - add the linter to angular
 - make sure there is no console.log in the code.
+
+### Create a common library
+
+- using verdaccio
+- creating the library
+- developing the library and using it in a same workspace
+- publishing the library in verdaccio
+- using the library in a nearby project
+
+### Unit testing
+
+- testing with Karma
+- all tests must succeed
+- all tests must covered the code
+- all tests must be meaningful
+
+### End to End testing
+
+- Installing cypress
+- using cypress by writing a script
