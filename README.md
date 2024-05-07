@@ -92,3 +92,14 @@
 - refactor ListComponent to show the loading with @defer
 
 ### Adding the SSR version of the app
+
+- use npx ng add @angular/ssr
+- fix the issues :
+  - inject token Document instead of using document
+  - create injectable token for the origin of the REST API server ('http://localhost:3000', or '') and prefix all urls used with HttpClient.
+  - fix the interval observable by using outside the angular zone
+
+### Linter
+
+- add the linter to angular
+- make sure there is no console.log in the code.
