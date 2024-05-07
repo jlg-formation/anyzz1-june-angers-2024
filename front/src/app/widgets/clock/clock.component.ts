@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  NgZone,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { interval, tap } from 'rxjs';
@@ -17,17 +18,22 @@ import { interval, tap } from 'rxjs';
 })
 export class ClockComponent {
   realtime = new Date();
-  constructor(private cdref: ChangeDetectorRef) {
-    interval(1000)
-      .pipe(
-        tap(() => {
-          const now = new Date();
-          console.log('now: ', now);
-          this.realtime = now;
-          this.cdref.markForCheck();
-        }),
-        takeUntilDestroyed()
-      )
-      .subscribe();
+
+  constructor(private cdref: ChangeDetectorRef, private ngZone: NgZone) {
+    ngZone.runOutsideAngular(() => {
+      interval(1000)
+        .pipe(
+          tap(() => {
+            this.ngZone.run(() => {
+              const now = new Date();
+              console.log('now: ', now);
+              this.realtime = now;
+              this.cdref.markForCheck();
+            });
+          }),
+          takeUntilDestroyed()
+        )
+        .subscribe();
+    });
   }
 }
