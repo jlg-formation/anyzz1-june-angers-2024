@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "build:widgets": "ng build widgets",
     "test": "ng test",
+    "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
     "serve:ssr:front": "node dist/front/server/server.mjs",
     "lint": "ng lint"
   },
