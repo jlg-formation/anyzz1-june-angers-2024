@@ -1,16 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'lib-widgets',
+  selector: 'gst-widgets',
   standalone: true,
   imports: [],
-  template: `
-    <p>
-      widgets works!
-    </p>
-  `,
-  styles: ``
+  template: ` <p>xxx widgets works!</p> `,
+  styles: ``,
 })
-export class WidgetsComponent {
-
-}
+export class WidgetsComponent {}
