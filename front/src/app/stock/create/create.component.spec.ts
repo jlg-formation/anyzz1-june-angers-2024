@@ -12,61 +12,65 @@ describe('CreateComponent', () => {
   let fixture: ComponentFixture<CreateComponent>;
 
   it('should submit', (done) => {
-    TestBed.configureTestingModule({
-      imports: [CreateComponent, HttpClientTestingModule],
-      providers: [
-        provideRouter(routes),
+    (async () => {
+      await TestBed.configureTestingModule({
+        imports: [CreateComponent, HttpClientTestingModule],
+        providers: [
+          provideRouter(routes),
 
-        {
-          provide: ArticleService,
-          useValue: {
-            add() {
-              return of(undefined);
-            },
-            load() {
-              return of(undefined);
+          {
+            provide: ArticleService,
+            useValue: {
+              add() {
+                return of(undefined);
+              },
+              load() {
+                return of(undefined);
+              },
             },
           },
-        },
-      ],
-    }).compileComponents();
+        ],
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(CreateComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-    component.submit().subscribe(() => {
-      expect(true).toBe(true);
-      done();
-    });
+      fixture = TestBed.createComponent(CreateComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+      component.submit().subscribe(() => {
+        expect(true).toBe(true);
+        done();
+      });
+    })();
   });
 
   it('should submit in error', (done) => {
-    TestBed.configureTestingModule({
-      imports: [CreateComponent, HttpClientTestingModule],
-      providers: [
-        provideRouter(routes),
+    (async () => {
+      await TestBed.configureTestingModule({
+        imports: [CreateComponent, HttpClientTestingModule],
+        providers: [
+          provideRouter(routes),
 
-        {
-          provide: ArticleService,
-          useValue: {
-            add() {
-              return throwError(() => new Error('oups'));
-            },
-            load() {
-              return of(undefined);
+          {
+            provide: ArticleService,
+            useValue: {
+              add() {
+                return throwError(() => new Error('oups'));
+              },
+              load() {
+                return of(undefined);
+              },
             },
           },
-        },
-      ],
-    }).compileComponents();
+        ],
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(CreateComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+      fixture = TestBed.createComponent(CreateComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
 
-    component.submit().subscribe(() => {
-      expect(true).toBe(true);
-      done();
-    });
+      component.submit().subscribe(() => {
+        expect(true).toBe(true);
+        done();
+      });
+    })();
   });
 });
