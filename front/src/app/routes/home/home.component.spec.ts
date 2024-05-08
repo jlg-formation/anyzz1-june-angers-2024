@@ -1,12 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { routes } from '../../app.routes';
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
+
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -22,6 +24,19 @@ describe('HomeComponent', () => {
   });
 
   it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should go to stock', (done) => {
+    router = TestBed.inject(Router);
+    const link = fixture.debugElement.nativeElement.querySelector('a');
+    link.click();
+
+    fixture.whenStable().then(() => {
+      expect(router.routerState.snapshot.url).toEqual('/stock');
+      done();
+    });
+
     expect(component).toBeTruthy();
   });
 });
