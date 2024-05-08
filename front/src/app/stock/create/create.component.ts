@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   Component,
   DoCheck,
+  NgZone,
   inject,
 } from '@angular/core';
 import {
@@ -68,7 +69,8 @@ export class CreateComponent implements DoCheck {
     private articleService: ArticleService,
     private router: Router,
     private route: ActivatedRoute,
-    private cdref: ChangeDetectorRef
+    private cdref: ChangeDetectorRef,
+    private ngZone: NgZone
   ) {}
 
   ngDoCheck(): void {
@@ -86,7 +88,11 @@ export class CreateComponent implements DoCheck {
         return this.articleService.add(newArticle);
       }),
       switchMap(() => this.articleService.load()),
-      switchMap(() => this.router.navigate(['..'], { relativeTo: this.route })),
+      switchMap(() =>
+        this.ngZone.run(() =>
+          this.router.navigate(['..'], { relativeTo: this.route })
+        )
+      ),
       catchError((err) => {
         if (err instanceof Error) {
           this.errorMsg = err.message;
