@@ -110,7 +110,10 @@
 - creating a library widgets
 - developing the library and using it in a same workspace
 - migrating the widgets components (clock, async-btn)
-- using verdaccio
+
+### Using a internal registry
+
+- Install and run Verdaccio
 - publishing the library in verdaccio
 - using the library in a nearby project
 
