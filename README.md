@@ -94,6 +94,7 @@
 ### Adding the SSR version of the app
 
 - use npx ng add @angular/ssr
+- using temporary npm (it seems pnpm cannot work with ng add @angular/ssr)
 - fix the issues :
   - inject token Document instead of using document
   - create injectable token for the origin of the REST API server ('http://localhost:3000', or '') and prefix all urls used with HttpClient.
@@ -106,9 +107,9 @@
 
 ### Create a common library
 
-- using verdaccio
-- creating the library
+- creating a library widgets
 - developing the library and using it in a same workspace
+- using verdaccio
 - publishing the library in verdaccio
 - using the library in a nearby project
 
