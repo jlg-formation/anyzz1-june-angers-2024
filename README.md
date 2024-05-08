@@ -109,6 +109,7 @@
 
 - creating a library widgets
 - developing the library and using it in a same workspace
+- migrating the widgets components (clock, async-btn)
 - using verdaccio
 - publishing the library in verdaccio
 - using the library in a nearby project

@@ -9,7 +9,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { interval, tap } from 'rxjs';
 
 @Component({
-  selector: 'app-clock',
+  selector: 'gst-clock',
   standalone: true,
   imports: [AsyncPipe, DatePipe],
   templateUrl: './clock.component.html',

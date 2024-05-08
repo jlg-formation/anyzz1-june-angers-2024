@@ -14,6 +14,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { AsyncBtnComponent } from '@gestionstock/widgets';
 import {
   Observable,
   Subject,
@@ -27,10 +28,9 @@ import {
 } from 'rxjs';
 import { NewArticle } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
+import { API_SERVER_URL } from '../../tokens/api-server-url.token';
 import { FormGroupArgs, getErrors } from '../../utils/errors.utils';
 import { blackListValidator } from '../../validators/black-list.validator';
-import { AsyncBtnComponent } from '../../widgets/async-btn/async-btn.component';
-import { API_SERVER_URL } from '../../tokens/api-server-url.token';
 
 @Component({
   selector: 'app-create',

@@ -5,7 +5,7 @@
     <p>Total articles : {{ getTotalArticles() }}</p>
 
     <nav>
-      <app-async-btn
+      <gst-async-btn
         label="Rafraîchir"
         [action]="refresh()"
         [icon]="faRotateRight"
@@ -14,7 +14,7 @@
       <a routerLink="create" class="button" title="Ajouter">
         <fa-icon [icon]="faPlus"></fa-icon>
       </a>
-      <app-async-btn
+      <gst-async-btn
         label="Supprimer"
         [action]="remove()"
         [icon]="faTrashAlt"

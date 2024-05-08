@@ -13,7 +13,7 @@ import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import { Observable, catchError, finalize, of, switchMap, tap } from 'rxjs';
 
 @Component({
-  selector: 'app-async-btn',
+  selector: 'gst-async-btn',
   standalone: true,
   imports: [FontAwesomeModule],
   templateUrl: './async-btn.component.html',

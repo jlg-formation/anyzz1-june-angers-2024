@@ -28,7 +28,7 @@
       }
     </div>
     <div class="buttons">
-      <app-async-btn
+      <gst-async-btn
         [icon]="faPlus"
         [disabled]="f.invalid || f.pending"
         (setError)="setError($event)"
@@ -36,7 +36,7 @@
         [action]="submit()"
       >
         <span>Ajouter</span>
-      </app-async-btn>
+      </gst-async-btn>
     </div>
   </form>
 </main>

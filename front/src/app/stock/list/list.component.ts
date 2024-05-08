@@ -7,10 +7,10 @@ import {
   faRotateRight,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import { AsyncBtnComponent } from '@gestionstock/widgets';
 import { Observable, catchError, finalize, of, switchMap, tap } from 'rxjs';
 import { Article } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
-import { AsyncBtnComponent } from '../../widgets/async-btn/async-btn.component';
 
 @Component({
   selector: 'app-list',
