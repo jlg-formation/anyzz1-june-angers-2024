@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, signal } from '@angular/core';
-import { Observable, catchError, delay, map, of, switchMap } from 'rxjs';
+import { Observable, catchError, map, of, switchMap } from 'rxjs';
 import { Article, NewArticle } from '../interfaces/article';
 import { API_SERVER_URL } from '../tokens/api-server-url.token';
 
@@ -34,7 +34,6 @@ export class ArticleService {
         this.errorMsg = '';
         return this.http.get<Article[]>(this.url);
       }),
-      delay(1000),
       map((articles) => {
         this.articles.set(articles);
       }),
@@ -47,7 +46,6 @@ export class ArticleService {
 
   remove(ids: string[]): Observable<void> {
     return of(undefined).pipe(
-      delay(1000),
       switchMap(() => {
         if (ids.length === 2) {
           window.alert(

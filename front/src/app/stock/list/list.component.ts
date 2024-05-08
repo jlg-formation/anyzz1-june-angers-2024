@@ -8,7 +8,15 @@ import {
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { AsyncBtnComponent } from '@gestionstock/widgets';
-import { Observable, catchError, finalize, of, switchMap, tap } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  delay,
+  finalize,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { Article } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
 
@@ -50,6 +58,7 @@ export class ListComponent implements OnInit {
 
   refresh(): Observable<void> {
     return of(undefined).pipe(
+      delay(1000),
       switchMap(() => {
         this.errorMsg = '';
         this.isRefreshing = true;
@@ -73,6 +82,7 @@ export class ListComponent implements OnInit {
 
   remove() {
     return of(undefined).pipe(
+      delay(1000),
       switchMap(() => {
         this.errorMsg = '';
         this.isRemoving = true;
