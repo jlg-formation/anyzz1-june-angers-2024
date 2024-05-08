@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { WidgetsComponent } from '@gestionstock/widgets';
 import { ClockComponent } from '../../widgets/clock/clock.component';
 
 @Component({
@@ -6,7 +7,7 @@ import { ClockComponent } from '../../widgets/clock/clock.component';
   templateUrl: './legal.component.html',
   styleUrl: './legal.component.scss',
   standalone: true,
-  imports: [ClockComponent],
+  imports: [ClockComponent, WidgetsComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class LegalComponent {}
