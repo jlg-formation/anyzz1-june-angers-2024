@@ -75,10 +75,6 @@ export class CreateComponent implements DoCheck {
     this.doCheck.next();
   }
 
-  setError(errorMsg: string) {
-    this.errorMsg = errorMsg;
-  }
-
   submit(): Observable<void> {
     return of(undefined).pipe(
       tap(() => {
