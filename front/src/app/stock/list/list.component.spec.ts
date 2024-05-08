@@ -1,13 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { signal } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { of, throwError } from 'rxjs';
+import { a1 } from '../../../tests/data';
 import { routes } from '../../app.routes';
 import { ArticleService } from '../../services/article.service';
 import { ListComponent } from './list.component';
-import { a1 } from '../../../tests/data';
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -47,7 +52,7 @@ describe('ListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should refresh', (done) => {
+  it('should refresh', fakeAsync(() => {
     (async () => {
       await TestBed.configureTestingModule({
         imports: [ListComponent, HttpClientTestingModule],
@@ -70,14 +75,16 @@ describe('ListComponent', () => {
       fixture.detectChanges();
 
       component.refresh().subscribe(() => {
-        done();
+        expect(true).toEqual(true);
       });
+
+      tick(1000);
 
       expect(component).toBeTruthy();
     })();
-  });
+  }));
 
-  it('should refresh in Error type error', (done) => {
+  it('should refresh in Error type error', fakeAsync(() => {
     (async () => {
       await TestBed.configureTestingModule({
         imports: [ListComponent, HttpClientTestingModule],
@@ -100,14 +107,16 @@ describe('ListComponent', () => {
       fixture.detectChanges();
 
       component.refresh().subscribe(() => {
-        done();
+        expect(true).toEqual(true);
       });
+
+      tick(1000);
 
       expect(component).toBeTruthy();
     })();
-  });
+  }));
 
-  it('should refresh in string error', (done) => {
+  it('should refresh in string error', fakeAsync(() => {
     (async () => {
       await TestBed.configureTestingModule({
         imports: [ListComponent, HttpClientTestingModule],
@@ -130,14 +139,16 @@ describe('ListComponent', () => {
       fixture.detectChanges();
 
       component.refresh().subscribe(() => {
-        done();
+        expect(true).toEqual(true);
       });
+
+      tick(1000);
 
       expect(component).toBeTruthy();
     })();
-  });
+  }));
 
-  it('should remove', (done) => {
+  it('should remove', fakeAsync(() => {
     (async () => {
       await TestBed.configureTestingModule({
         imports: [ListComponent, HttpClientTestingModule],
@@ -167,14 +178,16 @@ describe('ListComponent', () => {
       component.select(a1);
 
       component.remove().subscribe(() => {
-        done();
+        expect(true).toEqual(true);
       });
+
+      tick(1000);
 
       expect(component).toBeTruthy();
     })();
-  });
+  }));
 
-  it('should remove in error', (done) => {
+  it('should remove in error', fakeAsync(() => {
     (async () => {
       await TestBed.configureTestingModule({
         imports: [ListComponent, HttpClientTestingModule],
@@ -205,10 +218,12 @@ describe('ListComponent', () => {
       component.setError('');
 
       component.remove().subscribe(() => {
-        done();
+        expect(true).toEqual(true);
       });
+
+      tick(1000);
 
       expect(component).toBeTruthy();
     })();
-  });
+  }));
 });

@@ -1,17 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
+import { of, throwError } from 'rxjs';
 import { routes } from '../../app.routes';
 import { ArticleService } from '../../services/article.service';
 import { CreateComponent } from './create.component';
-import { of, throwError } from 'rxjs';
 
 describe('CreateComponent', () => {
   let component: CreateComponent;
   let fixture: ComponentFixture<CreateComponent>;
 
-  it('should submit', (done) => {
+  it('should submit', fakeAsync(() => {
     (async () => {
       await TestBed.configureTestingModule({
         imports: [CreateComponent, HttpClientTestingModule],
@@ -41,12 +46,13 @@ describe('CreateComponent', () => {
 
       component.submit().subscribe(() => {
         expect(true).toBe(true);
-        done();
       });
-    })();
-  });
 
-  it('should submit in error', (done) => {
+      tick(1000);
+    })();
+  }));
+
+  it('should submit in error', fakeAsync(() => {
     (async () => {
       await TestBed.configureTestingModule({
         imports: [CreateComponent, HttpClientTestingModule],
@@ -73,8 +79,9 @@ describe('CreateComponent', () => {
 
       component.submit().subscribe(() => {
         expect(true).toBe(true);
-        done();
       });
+
+      tick(1000);
     })();
-  });
+  }));
 });

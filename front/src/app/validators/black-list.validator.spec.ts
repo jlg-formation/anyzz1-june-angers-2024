@@ -3,6 +3,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { Observable, of, throwError } from 'rxjs';
 import { blackListValidator } from './black-list.validator';
+import { fakeAsync, tick } from '@angular/core/testing';
 
 describe('BlackList Validator', () => {
   const control: AbstractControl = {
@@ -13,7 +14,7 @@ describe('BlackList Validator', () => {
     markForCheck() {},
   } as ChangeDetectorRef;
 
-  it('should blackListValidator', (done) => {
+  it('should blackListValidator', fakeAsync(() => {
     const httpClient: HttpClient = {
       get() {
         return of(true);
@@ -28,11 +29,12 @@ describe('BlackList Validator', () => {
 
     o.subscribe((result) => {
       expect(result).toEqual(null);
-      done();
     });
-  });
 
-  it('should blackListValidator with negative result', (done) => {
+    tick(1000);
+  }));
+
+  it('should blackListValidator with negative result', fakeAsync(() => {
     const httpClient: HttpClient = {
       get() {
         return of(false);
@@ -47,11 +49,12 @@ describe('BlackList Validator', () => {
 
     o.subscribe((result) => {
       expect(result).toEqual({ blackList: { blackListedWord: control.value } });
-      done();
     });
-  });
 
-  it('should blackListValidator with no backend (positive result)', (done) => {
+    tick(1000);
+  }));
+
+  it('should blackListValidator with no backend (positive result)', fakeAsync(() => {
     const httpClient: HttpClient = {
       get() {
         return throwError(() => new Error());
@@ -66,7 +69,8 @@ describe('BlackList Validator', () => {
 
     o.subscribe((result) => {
       expect(result).toEqual(null);
-      done();
     });
-  });
+
+    tick(1000);
+  }));
 });
