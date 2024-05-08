@@ -65,6 +65,7 @@ export class ListComponent implements OnInit {
         return this.articleService.load();
       }),
       catchError((err) => {
+        console.log('err: ', err);
         if (err instanceof Error) {
           this.errorMsg = err.message;
         } else {

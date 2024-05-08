@@ -1,28 +1,214 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { signal } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { of, throwError } from 'rxjs';
 import { routes } from '../../app.routes';
+import { ArticleService } from '../../services/article.service';
 import { ListComponent } from './list.component';
+import { a1 } from '../../../tests/data';
 
 describe('ListComponent', () => {
   let component: ListComponent;
   let fixture: ComponentFixture<ListComponent>;
 
-  beforeEach(async () => {
+  it('should create', async () => {
     await TestBed.configureTestingModule({
       imports: [ListComponent, HttpClientTestingModule],
       providers: [provideRouter(routes)],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    expect(component).toBeTruthy();
   });
 
-  it('should create', () => {
+  it('should create with non empty articles', async () => {
+    await TestBed.configureTestingModule({
+      imports: [ListComponent, HttpClientTestingModule],
+      providers: [
+        provideRouter(routes),
+        {
+          provide: ArticleService,
+          useValue: {
+            articles: signal([]),
+          },
+        },
+      ],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(ListComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
     expect(component).toBeTruthy();
+  });
+
+  it('should refresh', (done) => {
+    (async () => {
+      await TestBed.configureTestingModule({
+        imports: [ListComponent, HttpClientTestingModule],
+        providers: [
+          provideRouter(routes),
+          {
+            provide: ArticleService,
+            useValue: {
+              articles: signal([]),
+              load() {
+                return of(undefined);
+              },
+            },
+          },
+        ],
+      }).compileComponents();
+
+      fixture = TestBed.createComponent(ListComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+
+      component.refresh().subscribe(() => {
+        done();
+      });
+
+      expect(component).toBeTruthy();
+    })();
+  });
+
+  it('should refresh in Error type error', (done) => {
+    (async () => {
+      await TestBed.configureTestingModule({
+        imports: [ListComponent, HttpClientTestingModule],
+        providers: [
+          provideRouter(routes),
+          {
+            provide: ArticleService,
+            useValue: {
+              articles: signal([]),
+              load() {
+                return throwError(() => new Error('oups'));
+              },
+            },
+          },
+        ],
+      }).compileComponents();
+
+      fixture = TestBed.createComponent(ListComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+
+      component.refresh().subscribe(() => {
+        done();
+      });
+
+      expect(component).toBeTruthy();
+    })();
+  });
+
+  it('should refresh in string error', (done) => {
+    (async () => {
+      await TestBed.configureTestingModule({
+        imports: [ListComponent, HttpClientTestingModule],
+        providers: [
+          provideRouter(routes),
+          {
+            provide: ArticleService,
+            useValue: {
+              articles: signal([]),
+              load() {
+                return throwError(() => 'oups');
+              },
+            },
+          },
+        ],
+      }).compileComponents();
+
+      fixture = TestBed.createComponent(ListComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+
+      component.refresh().subscribe(() => {
+        done();
+      });
+
+      expect(component).toBeTruthy();
+    })();
+  });
+
+  it('should remove', (done) => {
+    (async () => {
+      await TestBed.configureTestingModule({
+        imports: [ListComponent, HttpClientTestingModule],
+        providers: [
+          provideRouter(routes),
+          {
+            provide: ArticleService,
+            useValue: {
+              articles: signal([]),
+              load() {
+                return of(undefined);
+              },
+              remove() {
+                return of(undefined);
+              },
+            },
+          },
+        ],
+      }).compileComponents();
+
+      fixture = TestBed.createComponent(ListComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+
+      component.select(a1);
+      component.select(a1);
+      component.select(a1);
+
+      component.remove().subscribe(() => {
+        done();
+      });
+
+      expect(component).toBeTruthy();
+    })();
+  });
+
+  it('should remove in error', (done) => {
+    (async () => {
+      await TestBed.configureTestingModule({
+        imports: [ListComponent, HttpClientTestingModule],
+        providers: [
+          provideRouter(routes),
+          {
+            provide: ArticleService,
+            useValue: {
+              articles: signal([]),
+              load() {
+                return of(undefined);
+              },
+              remove() {
+                return throwError(() => new Error('oups'));
+              },
+            },
+          },
+        ],
+      }).compileComponents();
+
+      fixture = TestBed.createComponent(ListComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+
+      component.select(a1);
+      component.select(a1);
+      component.select(a1);
+      component.setError('');
+
+      component.remove().subscribe(() => {
+        done();
+      });
+
+      expect(component).toBeTruthy();
+    })();
   });
 });
