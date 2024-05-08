@@ -10,7 +10,10 @@
     "test": "ng test",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
     "serve:ssr:front": "node dist/front/server/server.mjs",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "private": true,
   "dependencies": {
@@ -44,6 +47,7 @@
     "@angular-eslint/template-parser": "17.4.0",
     "@angular/cli": "^17.3.6",
     "@angular/compiler-cli": "^17.3.7",
+    "@cypress/schematic": "^2.5.1",
     "@types/express": "^4.17.17",
     "@types/express-http-proxy": "^1.6.6",
     "@types/jasmine": "~5.1.4",
@@ -58,7 +62,8 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^17.3.0",
-    "typescript": "~5.4.5"
+    "typescript": "~5.4.5",
+    "cypress": "latest"
   },
   "volta": {
     "node": "20.12.2"
