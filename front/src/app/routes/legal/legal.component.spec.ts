@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LegalComponent } from './legal.component';
+import LegalComponent from './legal.component';
 
 describe('LegalComponent', () => {
   let component: LegalComponent;
@@ -8,9 +8,8 @@ describe('LegalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LegalComponent ]
-    })
-    .compileComponents();
+      declarations: [LegalComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
