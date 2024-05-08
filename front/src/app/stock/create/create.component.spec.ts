@@ -35,6 +35,10 @@ describe('CreateComponent', () => {
       fixture = TestBed.createComponent(CreateComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
+
+      component.f.markAllAsTouched();
+      fixture.detectChanges();
+
       component.submit().subscribe(() => {
         expect(true).toBe(true);
         done();
