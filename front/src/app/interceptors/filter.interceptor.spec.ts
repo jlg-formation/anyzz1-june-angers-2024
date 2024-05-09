@@ -10,7 +10,7 @@ import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { filterInterceptor } from './filter.interceptor';
 
-fdescribe('filterInterceptor', () => {
+describe('filterInterceptor', () => {
   const interceptor: HttpInterceptorFn = (req, next) =>
     TestBed.runInInjectionContext(() => filterInterceptor(req, next));
 
