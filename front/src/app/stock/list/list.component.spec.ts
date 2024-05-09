@@ -34,16 +34,11 @@ describe('ListComponent', () => {
   it('should create with non empty articles', async () => {
     await TestBed.configureTestingModule({
       imports: [ListComponent, HttpClientTestingModule],
-      providers: [
-        provideRouter(routes),
-        {
-          provide: ArticleService,
-          useValue: {
-            articles: signal([]),
-          },
-        },
-      ],
+      providers: [provideRouter(routes)],
     }).compileComponents();
+
+    const articleService = TestBed.inject(ArticleService);
+    spyOn(articleService, 'articles').and.returnValue([]);
 
     fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
