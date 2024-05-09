@@ -18,6 +18,17 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  const authToken = "this is my auth token";
+  const value = req.get("Authorization");
+  console.log("value: ", value);
+  if (value !== `Bearer ${authToken}`) {
+    res.status(401).end();
+    return;
+  }
+  next();
+});
+
 app.get("/articles", (req, res) => {
   res.json(articles);
 });
