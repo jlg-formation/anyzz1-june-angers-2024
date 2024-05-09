@@ -133,8 +133,3 @@
 
 - request interceptor: add a given token in the header request
 - response interceptor: filter some articles when returned.
-
-### adding PWA
-
-- Manifest
-- Caching
