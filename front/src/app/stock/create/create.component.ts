@@ -9,6 +9,7 @@ import { Formify } from '../../../utils/formify';
 import { NewArticle } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
 import { blackListValidator } from '../../widgets/validators/blackList.validator';
+import { BlacklistService } from '../../services/blacklist.service';
 
 @Component({
   selector: 'app-create',
@@ -23,7 +24,7 @@ export default class CreateComponent implements OnInit {
     name: this.fb.nonNullable.control('Truc', [
       Validators.required,
       Validators.maxLength(10),
-      blackListValidator(['zut', 'flute'], { matchCase: false }),
+      blackListValidator(this.blackListService, { matchCase: false }),
     ]),
     price: this.fb.nonNullable.control(0, [Validators.required]),
     qty: this.fb.nonNullable.control(1, [Validators.required]),
@@ -38,6 +39,7 @@ export default class CreateComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
+    private blackListService: BlacklistService,
   ) {}
 
   ngOnInit(): void {}

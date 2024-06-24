@@ -1,17 +1,21 @@
 import { ValidationErrors, ValidatorFn } from '@angular/forms';
+import { BlacklistService } from '../../services/blacklist.service';
+import { inject } from '@angular/core';
 
 type Options = { matchCase: boolean };
 
 type BlackListFn = (
-  blackList: string[],
+  blackListService: BlacklistService,
   options?: Partial<Options>,
 ) => ValidatorFn;
 
 export const blackListValidator: BlackListFn =
-  (blackList, options) =>
+  (blackListService, options) =>
   (control): ValidationErrors | null => {
     const defaultOptions: Options = { matchCase: true };
     const opts: Options = { ...defaultOptions, ...options };
+
+    const blackList = blackListService.blackList;
 
     if (typeof control.value !== 'string') {
       return { blackList: 'please give me a string...' };
