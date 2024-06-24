@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faCircleNotch,
   faPlus,
@@ -7,9 +8,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Article } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list',
+  standalone: true,
+  imports: [FontAwesomeModule, CommonModule, RouterLink],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
