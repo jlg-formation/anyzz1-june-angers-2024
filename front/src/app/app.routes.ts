@@ -5,6 +5,10 @@ import { stockRoutes } from './stock/stock.routes';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'legal', component: LegalComponent },
+  {
+    path: 'legal',
+    loadComponent: () =>
+      import('./routes/legal/legal.component').then((m) => m.LegalComponent),
+  },
   { path: 'stock', children: stockRoutes },
 ];
