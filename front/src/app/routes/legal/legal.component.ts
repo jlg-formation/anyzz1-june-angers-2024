@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-legal',
@@ -7,8 +7,4 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './legal.component.html',
   styleUrls: ['./legal.component.scss'],
 })
-export class LegalComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export default class LegalComponent {}

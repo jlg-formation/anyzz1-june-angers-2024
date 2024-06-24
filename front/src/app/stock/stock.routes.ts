@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
 
-export const stockRoutes: Routes = [
+const stockRoutes: Routes = [
   {
     path: '',
-    loadComponent: () =>
-      import('./list/list.component').then((m) => m.ListComponent),
+    loadComponent: () => import('./list/list.component'),
   },
   {
     path: 'create',
-    loadComponent: () =>
-      import('./create/create.component').then((m) => m.CreateComponent),
+    loadComponent: () => import('./create/create.component'),
   },
 ];
+
+export default stockRoutes;
