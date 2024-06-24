@@ -8,6 +8,7 @@ import { lastValueFrom, timer } from 'rxjs';
 import { Formify } from '../../../utils/formify';
 import { NewArticle } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
+import { blackListValidator } from '../../widgets/validators/blackList.validator';
 
 @Component({
   selector: 'app-create',
@@ -19,7 +20,11 @@ import { ArticleService } from '../../services/article.service';
 export default class CreateComponent implements OnInit {
   errorMsg = '';
   f = this.fb.nonNullable.group<Formify<NewArticle>>({
-    name: this.fb.nonNullable.control('Truc', [Validators.required]),
+    name: this.fb.nonNullable.control('Truc', [
+      Validators.required,
+      Validators.maxLength(10),
+      blackListValidator(['zut', 'flute'], { matchCase: false }),
+    ]),
     price: this.fb.nonNullable.control(0, [Validators.required]),
     qty: this.fb.nonNullable.control(1, [Validators.required]),
   });
