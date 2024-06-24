@@ -11,12 +11,11 @@ import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { lastValueFrom, timer } from 'rxjs';
 import { NewArticle } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [ReactiveFormsModule, FontAwesomeModule, CommonModule],
+  imports: [ReactiveFormsModule, FontAwesomeModule],
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
 })

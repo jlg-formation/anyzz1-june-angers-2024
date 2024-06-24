@@ -8,13 +8,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Article } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
-import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [FontAwesomeModule, CommonModule, RouterLink],
+  imports: [FontAwesomeModule, RouterLink],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
