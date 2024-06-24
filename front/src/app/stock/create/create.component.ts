@@ -1,11 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -23,20 +18,12 @@ import { ArticleService } from '../../services/article.service';
 })
 export default class CreateComponent implements OnInit {
   errorMsg = '';
-  f = new FormGroup<Formify<NewArticle>>({
-    name: new FormControl('Truc', {
-      validators: [Validators.required],
-      nonNullable: true,
-    }),
-    price: new FormControl(0, {
-      validators: [Validators.required],
-      nonNullable: true,
-    }),
-    qty: new FormControl(1, {
-      validators: [Validators.required],
-      nonNullable: true,
-    }),
+  f = this.fb.nonNullable.group<Formify<NewArticle>>({
+    name: this.fb.nonNullable.control('Truc', [Validators.required]),
+    price: this.fb.nonNullable.control(0, [Validators.required]),
+    qty: this.fb.nonNullable.control(1, [Validators.required]),
   });
+
   faCircleNotch = faCircleNotch;
   faPlus = faPlus;
   isAdding = false;
@@ -45,6 +32,7 @@ export default class CreateComponent implements OnInit {
     private articleService: ArticleService,
     private router: Router,
     private route: ActivatedRoute,
+    private fb: FormBuilder,
   ) {}
 
   ngOnInit(): void {}
