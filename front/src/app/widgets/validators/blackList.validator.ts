@@ -1,6 +1,5 @@
 import { ValidationErrors, ValidatorFn } from '@angular/forms';
 import { BlacklistService } from '../../services/blacklist.service';
-import { inject } from '@angular/core';
 
 type Options = { matchCase: boolean };
 

@@ -4,14 +4,17 @@
     <label>
       <span>Nom</span>
       <input type="text" formControlName="name" />
+      <span class="error"> {{ getErrorMessage(f.controls.name) }} </span>
     </label>
     <label>
       <span>Prix</span>
       <input type="number" formControlName="price" />
+      <span class="error"> {{ getErrorMessage(f.controls.price) }} </span>
     </label>
     <label>
       <span>Quantité</span>
       <input type="number" formControlName="qty" />
+      <span class="error"> {{ getErrorMessage(f.controls.qty) }} </span>
     </label>
     <div class="error">
       @if (errorMsg) {

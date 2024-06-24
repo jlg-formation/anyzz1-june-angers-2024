@@ -10,6 +10,7 @@ import { NewArticle } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
 import { blackListValidator } from '../../widgets/validators/blackList.validator';
 import { BlacklistService } from '../../services/blacklist.service';
+import { getErrorMessage } from '../../../utils/error';
 
 @Component({
   selector: 'app-create',
@@ -21,7 +22,7 @@ import { BlacklistService } from '../../services/blacklist.service';
 export default class CreateComponent implements OnInit {
   errorMsg = '';
   f = this.fb.nonNullable.group<Formify<NewArticle>>({
-    name: this.fb.nonNullable.control('Truc', [
+    name: this.fb.nonNullable.control('', [
       Validators.required,
       Validators.maxLength(10),
       blackListValidator(this.blackListService, { matchCase: false }),
@@ -29,9 +30,9 @@ export default class CreateComponent implements OnInit {
     price: this.fb.nonNullable.control(0, [Validators.required]),
     qty: this.fb.nonNullable.control(1, [Validators.required]),
   });
-
   faCircleNotch = faCircleNotch;
   faPlus = faPlus;
+  getErrorMessage = getErrorMessage;
   isAdding = false;
 
   constructor(
