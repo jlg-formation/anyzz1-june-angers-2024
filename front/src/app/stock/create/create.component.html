@@ -15,7 +15,7 @@
     </label>
     <div class="error">
       @if (errorMsg) {
-      <span>Erreur : {{ errorMsg }}</span>
+        <span>Erreur : {{ errorMsg }}</span>
       }
     </div>
     <div class="buttons">
@@ -28,4 +28,5 @@
       </button>
     </div>
   </form>
+  {{ f.value | json }}
 </main>

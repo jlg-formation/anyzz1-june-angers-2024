@@ -1,3 +1,5 @@
+import { New } from '../../utils/dto';
+
 export interface Article {
   id: string;
   name: string;
@@ -5,4 +7,4 @@ export interface Article {
   qty: number;
 }
 
-export type NewArticle = Omit<Article, 'id'>;
+export type NewArticle = New<Article>;
