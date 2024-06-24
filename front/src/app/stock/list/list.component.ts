@@ -5,8 +5,8 @@ import {
   faRotateRight,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
-import { Article } from 'src/app/interfaces/article';
-import { ArticleService } from 'src/app/services/article.service';
+import { Article } from '../../interfaces/article';
+import { ArticleService } from '../../services/article.service';
 
 @Component({
   selector: 'app-list',

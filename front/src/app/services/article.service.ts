@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Article, NewArticle } from '../interfaces/article';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { delay, lastValueFrom, catchError, switchMap, timer } from 'rxjs';
 
-const url = environment.apiDomain + '/api/articles';
+const url = '/api/articles';
 
 @Injectable({
   providedIn: 'root',
