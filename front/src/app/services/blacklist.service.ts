@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, of, switchMap } from 'rxjs';
+import { Observable, catchError, delay, of, switchMap } from 'rxjs';
 
 const url = '/api/isInvalid';
 
@@ -12,6 +12,7 @@ export class BlacklistService {
 
   isInvalid(value: string): Observable<boolean> {
     return of(undefined).pipe(
+      delay(300),
       switchMap(() =>
         this.http.get<boolean>(url, {
           params: new HttpParams({ fromObject: { value } }),
