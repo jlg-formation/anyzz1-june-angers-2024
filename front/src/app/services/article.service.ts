@@ -52,19 +52,18 @@ export class ArticleService {
     );
   }
 
-  async remove(ids: string[]) {
-    await lastValueFrom(
-      timer(1000).pipe(
-        switchMap(() =>
-          this.http.delete<void>(url, {
-            body: ids,
-          }),
-        ),
-        catchError((err) => {
-          console.log('err: ', err);
-          throw new Error('Technical error');
+  remove(ids: string[]): Observable<void> {
+    return of(undefined).pipe(
+      delay(1000),
+      switchMap(() =>
+        this.http.delete<void>(url, {
+          body: ids,
         }),
       ),
+      catchError((err) => {
+        console.log('err: ', err);
+        throw new Error('Technical error');
+      }),
     );
   }
 }

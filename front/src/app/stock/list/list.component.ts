@@ -53,7 +53,7 @@ export default class ListComponent implements OnInit {
       this.errorMsg = '';
       this.isRemoving = true;
       const ids = [...this.selectedArticles].map((a) => a.id);
-      await this.articleService.remove(ids);
+      await lastValueFrom(this.articleService.remove(ids));
       await lastValueFrom(this.articleService.load());
       this.selectedArticles.clear();
     } catch (err) {
