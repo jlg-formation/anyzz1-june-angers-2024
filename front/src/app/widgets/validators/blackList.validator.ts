@@ -1,32 +1,29 @@
-import { ValidationErrors, ValidatorFn } from '@angular/forms';
+import {
+  AsyncValidatorFn,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import { BlacklistService } from '../../services/blacklist.service';
+import { Observable, map, of, switchMap } from 'rxjs';
 
-type Options = { matchCase: boolean };
-
-type BlackListFn = (
-  blackListService: BlacklistService,
-  options?: Partial<Options>,
-) => ValidatorFn;
+type BlackListFn = (blackListService: BlacklistService) => AsyncValidatorFn;
 
 export const blackListValidator: BlackListFn =
-  (blackListService, options) =>
-  (control): ValidationErrors | null => {
-    const defaultOptions: Options = { matchCase: true };
-    const opts: Options = { ...defaultOptions, ...options };
-
-    const blackList = blackListService.blackList;
-
+  (blackListService) =>
+  (control): Observable<ValidationErrors | null> => {
     if (typeof control.value !== 'string') {
-      return { blackList: 'please give me a string...' };
+      return of(null);
     }
 
-    const value = opts.matchCase ? control.value : control.value.toLowerCase();
-    const bl = opts.matchCase
-      ? blackList
-      : blackList.map((s) => s.toLowerCase());
-
-    if (bl.includes(value)) {
-      return { blackList: `Comment ça ${value} ???` };
-    }
-    return null;
+    return of(undefined).pipe(
+      switchMap(() => blackListService.isInvalid(control.value)),
+      map((isInvalid) => {
+        if (isInvalid) {
+          return {
+            blackList: `Comment ca ${control.value}`,
+          };
+        }
+        return null;
+      }),
+    );
   };

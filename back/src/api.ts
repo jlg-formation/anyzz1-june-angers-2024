@@ -38,4 +38,28 @@ app.delete("/articles", (req, res) => {
   res.status(204).end();
 });
 
+app.get("/isInvalid", (req, res) => {
+  setTimeout(() => {
+    const blackList = ["zut", "flute"];
+    console.log("req.query: ", req.query);
+
+    if (!("value" in req.query)) {
+      res.json(false);
+      return;
+    }
+
+    const value = req.query.value;
+    if (typeof value !== "string") {
+      res.json(false);
+      return;
+    }
+    console.log("value: ", value);
+    if (blackList.includes(value)) {
+      res.json(true);
+      return;
+    }
+    res.json(false);
+  }, 2000);
+});
+
 export const api = app;

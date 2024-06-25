@@ -31,11 +31,10 @@ import { blackListValidator } from '../../widgets/validators/blackList.validator
 export default class CreateComponent implements OnInit {
   errorMsg = '';
   f = this.fb.nonNullable.group<Formify<NewArticle>>({
-    name: this.fb.nonNullable.control('', [
-      Validators.required,
-      Validators.maxLength(10),
-      blackListValidator(this.blackListService, { matchCase: false }),
-    ]),
+    name: this.fb.nonNullable.control('', {
+      validators: [Validators.required, Validators.maxLength(10)],
+      asyncValidators: [blackListValidator(this.blackListService)],
+    }),
     price: this.fb.nonNullable.control(0, [Validators.required]),
     qty: this.fb.nonNullable.control(1, [Validators.required]),
   });
