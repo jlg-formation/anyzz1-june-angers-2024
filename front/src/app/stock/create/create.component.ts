@@ -1,11 +1,12 @@
 import { JsonPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCircleNotch, faPlus } from '@fortawesome/free-solid-svg-icons';
 import {
   Observable,
+  Subject,
   catchError,
   delay,
   finalize,
@@ -14,7 +15,7 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { getErrorMessage } from '../../../utils/error';
+import { getErrors } from '../../../utils/error';
 import { Formify } from '../../../utils/formify';
 import { NewArticle } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
@@ -28,7 +29,8 @@ import { blackListValidator } from '../../widgets/validators/blackList.validator
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
 })
-export default class CreateComponent implements OnInit {
+export default class CreateComponent implements OnInit, DoCheck {
+  doCheck = new Subject<void>();
   errorMsg = '';
   f = this.fb.nonNullable.group<Formify<NewArticle>>({
     name: this.fb.nonNullable.control('', {
@@ -38,9 +40,9 @@ export default class CreateComponent implements OnInit {
     price: this.fb.nonNullable.control(0, [Validators.required]),
     qty: this.fb.nonNullable.control(1, [Validators.required]),
   });
+  fErrors = getErrors(this.f, this.doCheck);
   faCircleNotch = faCircleNotch;
   faPlus = faPlus;
-  getErrorMessage = getErrorMessage;
   isAdding = false;
 
   constructor(
@@ -50,6 +52,10 @@ export default class CreateComponent implements OnInit {
     private fb: FormBuilder,
     private blackListService: BlacklistService,
   ) {}
+
+  ngDoCheck(): void {
+    this.doCheck.next();
+  }
 
   ngOnInit(): void {}
 
