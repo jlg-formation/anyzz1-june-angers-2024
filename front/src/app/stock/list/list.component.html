@@ -7,7 +7,11 @@
       }
     </div>
     <nav>
-      <button title="Rafraîchir" (click)="refresh()" [disabled]="isRefreshing">
+      <button
+        title="Rafraîchir"
+        (click)="refresh().subscribe()"
+        [disabled]="isRefreshing"
+      >
         <fa-icon [icon]="faRotateRight" [spin]="isRefreshing"></fa-icon>
       </button>
       <a routerLink="create" class="button" title="Ajouter">

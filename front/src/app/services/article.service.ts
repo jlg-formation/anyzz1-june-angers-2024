@@ -1,17 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Article, NewArticle } from '../interfaces/article';
 import { HttpClient } from '@angular/common/http';
-import {
-  delay,
-  lastValueFrom,
-  catchError,
-  switchMap,
-  timer,
-  Observable,
-  of,
-  map,
-  tap,
-} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, catchError, delay, map, of, switchMap } from 'rxjs';
+import { Article, NewArticle } from '../interfaces/article';
 
 const url = '/api/articles';
 
