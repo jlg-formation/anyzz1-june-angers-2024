@@ -22,7 +22,7 @@
       }
     </div>
     <div class="buttons">
-      <button class="primary" [disabled]="isAdding || f.invalid">
+      <button class="primary" [disabled]="isAdding || f.invalid || f.pending">
         <fa-icon
           [icon]="isAdding ? faCircleNotch : faPlus"
           [spin]="isAdding"
