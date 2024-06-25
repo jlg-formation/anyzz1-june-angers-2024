@@ -1,6 +1,7 @@
 import { AbstractControl } from '@angular/forms';
 
 export const getErrorMessage = (control: AbstractControl): string => {
+  console.log('getErrorMessage', control.value);
   if (control.touched && control.errors) {
     if (control.errors['required']) {
       return 'Champ obligatoire';
