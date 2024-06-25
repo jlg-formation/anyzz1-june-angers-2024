@@ -1,38 +1,9 @@
-const { Observable, interval } = require("rxjs");
+const { interval, map } = require("rxjs");
 
 const obs = interval(1000);
 
-const fois10 = (obs) => {
-  return new Observable((subscriber) => {
-    const s = obs.subscribe({
-      next: (data) => {
-        subscriber.next(data * 10);
-      },
-      error: (err) => subscriber.error(err),
-      complete: () => subscriber.complete(),
-    });
-
-    return () => {
-      s.unsubscribe();
-    };
-  });
-};
-
-const addPrefixA = (obs) => {
-  return new Observable((subscriber) => {
-    const s = obs.subscribe({
-      next: (data) => {
-        subscriber.next("A" + data);
-      },
-      error: (err) => subscriber.error(err),
-      complete: () => subscriber.complete(),
-    });
-
-    return () => {
-      s.unsubscribe();
-    };
-  });
-};
+const fois10 = map((x) => x * 10);
+const addPrefixA = map((x) => "A" + x);
 
 const observer = {
   next: (data) => {
