@@ -11,6 +11,9 @@ export const getErrorMessage = (control: AbstractControl): string => {
       const max = control.errors['maxlength'].requiredLength;
       return `Champ trop long (${actual} > ${max}).`;
     }
+    if (control.errors['blackList']) {
+      return control.errors['blackList'];
+    }
   }
   return '';
 };
