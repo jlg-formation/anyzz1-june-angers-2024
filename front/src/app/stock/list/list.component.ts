@@ -16,6 +16,7 @@ import {
   lastValueFrom,
   of,
   switchMap,
+  tap,
 } from 'rxjs';
 
 @Component({
@@ -60,20 +61,27 @@ export default class ListComponent implements OnInit {
     );
   }
 
-  async remove() {
-    try {
-      this.errorMsg = '';
-      this.isRemoving = true;
-      const ids = [...this.selectedArticles].map((a) => a.id);
-      await lastValueFrom(this.articleService.remove(ids));
-      await lastValueFrom(this.articleService.load());
-      this.selectedArticles.clear();
-    } catch (err) {
-      console.log('err: ', err);
-      this.errorMsg = 'Cannot suppress';
-    } finally {
-      this.isRemoving = false;
-    }
+  remove(): Observable<void> {
+    return of(undefined).pipe(
+      switchMap(() => {
+        this.errorMsg = '';
+        this.isRemoving = true;
+        const ids = [...this.selectedArticles].map((a) => a.id);
+        return this.articleService.remove(ids);
+      }),
+      switchMap(() => this.articleService.load()),
+      tap(() => {
+        this.selectedArticles.clear();
+      }),
+      catchError((err) => {
+        console.log('err: ', err);
+        this.errorMsg = 'Cannot suppress';
+        return of(undefined);
+      }),
+      finalize(() => {
+        this.isRemoving = false;
+      }),
+    );
   }
 
   select(a: Article) {
