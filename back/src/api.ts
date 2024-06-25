@@ -59,7 +59,7 @@ app.get("/isInvalid", (req, res) => {
       return;
     }
     res.json(false);
-  }, 2000);
+  }, 500);
 });
 
 export const api = app;
