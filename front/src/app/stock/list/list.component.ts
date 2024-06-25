@@ -9,6 +9,7 @@ import {
 import { Article } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
 import { RouterLink } from '@angular/router';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -31,7 +32,7 @@ export default class ListComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.articleService.articles === undefined) {
-      this.articleService.load();
+      this.articleService.load().subscribe();
     }
   }
 
@@ -39,7 +40,7 @@ export default class ListComponent implements OnInit {
     try {
       this.errorMsg = '';
       this.isRefreshing = true;
-      await this.articleService.load();
+      await lastValueFrom(this.articleService.load());
     } catch (err) {
       console.log('err: ', err);
     } finally {
@@ -53,7 +54,7 @@ export default class ListComponent implements OnInit {
       this.isRemoving = true;
       const ids = [...this.selectedArticles].map((a) => a.id);
       await this.articleService.remove(ids);
-      await this.articleService.load();
+      await lastValueFrom(this.articleService.load());
       this.selectedArticles.clear();
     } catch (err) {
       console.log('err: ', err);
