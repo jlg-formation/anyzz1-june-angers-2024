@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "angular.ng-template",
+    "usernamehw.errorlens",
+    "dbaeumer.vscode-eslint",
+    "mhutchie.git-graph",
+    "xabikos.javascriptsnippets",
+    "whtouche.vscode-js-console-utils",
+    "esbenp.prettier-vscode",
+    "yatki.vscode-surround",
+    "meganrogge.template-string-converter",
+    "aljazsim.tsco"
+  ]
+}
