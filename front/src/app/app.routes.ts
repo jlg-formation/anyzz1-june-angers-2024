@@ -13,4 +13,9 @@ export const routes: Routes = [
     loadChildren: () => import('./stock/stock.routes'),
     title: 'Gestion Stock - Stock',
   },
+  {
+    path: '**',
+    loadComponent: () => import('./routes/not-found/not-found.component'),
+    title: 'Gestion Stock - Oups Not Found',
+  },
 ];

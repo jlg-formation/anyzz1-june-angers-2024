@@ -11,6 +11,10 @@ app.use("/api", api);
 app.use(express.static(wwwDir));
 app.use(serveIndex(wwwDir, { icons: true }));
 
+app.get("/**", (req, res) => {
+  res.sendFile("index.html", { root: wwwDir });
+});
+
 app.listen(3000, () => {
   console.log(`Successfully started on port ${port}`);
 });
