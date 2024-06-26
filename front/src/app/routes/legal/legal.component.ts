@@ -1,7 +1,7 @@
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { interval, map, tap } from 'rxjs';
+import { interval, map, startWith, tap } from 'rxjs';
 
 @Component({
   selector: 'app-legal',
@@ -13,6 +13,7 @@ import { interval, map, tap } from 'rxjs';
 export default class LegalComponent {
   clock = toSignal(
     interval(1000).pipe(
+      startWith(new Date()),
       map(() => new Date()),
       tap((x) => {
         console.log('x: ', x);
