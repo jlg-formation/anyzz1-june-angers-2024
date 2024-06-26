@@ -30,6 +30,8 @@ module.exports = tseslint.config(
           style: "kebab-case",
         },
       ],
+      eqeqeq: ["error", "always"],
+      "@typescript-eslint/explicit-function-return-type": "error",
     },
   },
   {

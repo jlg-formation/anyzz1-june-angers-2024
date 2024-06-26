@@ -76,7 +76,7 @@ export default class ListComponent implements OnInit {
     );
   }
 
-  select(a: Article) {
+  select(a: Article): void {
     if (this.selectedArticles.has(a)) {
       this.selectedArticles.delete(a);
       return;
