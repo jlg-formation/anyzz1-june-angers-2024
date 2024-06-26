@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faCircleNotch,
@@ -6,18 +7,9 @@ import {
   faRotateRight,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import { Observable, catchError, finalize, of, switchMap, tap } from 'rxjs';
 import { Article } from '../../interfaces/article';
 import { ArticleService } from '../../services/article.service';
-import { RouterLink } from '@angular/router';
-import {
-  Observable,
-  catchError,
-  finalize,
-  lastValueFrom,
-  of,
-  switchMap,
-  tap,
-} from 'rxjs';
 
 @Component({
   selector: 'app-list',

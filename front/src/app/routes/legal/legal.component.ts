@@ -13,7 +13,7 @@ import { interval, map, tap } from 'rxjs';
 export default class LegalComponent {
   clock = toSignal(
     interval(1000).pipe(
-      map((x) => new Date()),
+      map(() => new Date()),
       tap((x) => {
         console.log('x: ', x);
       }),

@@ -1,11 +1,7 @@
-import {
-  AsyncValidatorFn,
-  ValidationErrors,
-  ValidatorFn,
-} from '@angular/forms';
-import { BlacklistService } from '../../services/blacklist.service';
-import { Observable, map, of, switchMap, tap } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
+import { AsyncValidatorFn, ValidationErrors } from '@angular/forms';
+import { Observable, map, of, switchMap, tap } from 'rxjs';
+import { BlacklistService } from '../../services/blacklist.service';
 
 type BlackListFn = (
   blackListService: BlacklistService,

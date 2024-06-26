@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -8,8 +8,4 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './body.component.html',
   styleUrls: ['./body.component.scss'],
 })
-export class BodyComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class BodyComponent {}

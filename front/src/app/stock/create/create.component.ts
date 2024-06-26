@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { ChangeDetectorRef, Component, DoCheck, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, DoCheck } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -10,7 +10,6 @@ import {
   catchError,
   delay,
   finalize,
-  map,
   of,
   switchMap,
   tap,
@@ -29,7 +28,7 @@ import { blackListValidator } from '../../widgets/validators/blackList.validator
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
 })
-export default class CreateComponent implements OnInit, DoCheck {
+export default class CreateComponent implements DoCheck {
   doCheck = new Subject<void>();
   errorMsg = '';
   f = this.fb.nonNullable.group<Formify<NewArticle>>({
@@ -58,8 +57,6 @@ export default class CreateComponent implements OnInit, DoCheck {
     this.doCheck.next();
   }
 
-  ngOnInit(): void {}
-
   submit(): Observable<void> {
     return of(undefined).pipe(
       tap(() => {
@@ -68,8 +65,9 @@ export default class CreateComponent implements OnInit, DoCheck {
       delay(1000),
       switchMap(() => this.articleService.add(this.f.getRawValue())),
       switchMap(() => this.articleService.load()),
-      switchMap(() => this.router.navigate(['..'], { relativeTo: this.route })),
-      map(() => {}),
+      switchMap(async () => {
+        await this.router.navigate(['..'], { relativeTo: this.route });
+      }),
       catchError((err) => {
         console.log('err: ', err);
         if (err instanceof Error) {

@@ -18,7 +18,7 @@ export class BlacklistService {
           params: new HttpParams({ fromObject: { value } }),
         }),
       ),
-      catchError((err) => {
+      catchError(() => {
         return of(false);
       }),
     );
