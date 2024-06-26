@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, delay, of, switchMap } from 'rxjs';
 
-const url = '/api/isInvalid';
+export const url = '/api/isInvalid';
 
 @Injectable({
   providedIn: 'root',
