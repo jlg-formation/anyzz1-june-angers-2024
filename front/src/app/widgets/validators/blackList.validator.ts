@@ -4,12 +4,16 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 import { BlacklistService } from '../../services/blacklist.service';
-import { Observable, map, of, switchMap } from 'rxjs';
+import { Observable, map, of, switchMap, tap } from 'rxjs';
+import { ChangeDetectorRef } from '@angular/core';
 
-type BlackListFn = (blackListService: BlacklistService) => AsyncValidatorFn;
+type BlackListFn = (
+  blackListService: BlacklistService,
+  cdref: ChangeDetectorRef,
+) => AsyncValidatorFn;
 
 export const blackListValidator: BlackListFn =
-  (blackListService) =>
+  (blackListService, cdref) =>
   (control): Observable<ValidationErrors | null> => {
     if (typeof control.value !== 'string') {
       return of(null);
@@ -24,6 +28,9 @@ export const blackListValidator: BlackListFn =
           };
         }
         return null;
+      }),
+      tap(() => {
+        cdref.markForCheck();
       }),
     );
   };

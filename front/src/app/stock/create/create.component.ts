@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, DoCheck, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -35,7 +35,7 @@ export default class CreateComponent implements OnInit, DoCheck {
   f = this.fb.nonNullable.group<Formify<NewArticle>>({
     name: this.fb.nonNullable.control('', {
       validators: [Validators.required, Validators.maxLength(10)],
-      asyncValidators: [blackListValidator(this.blackListService)],
+      asyncValidators: [blackListValidator(this.blackListService, this.cdref)],
     }),
     price: this.fb.nonNullable.control(0, [Validators.required]),
     qty: this.fb.nonNullable.control(1, [Validators.required]),
@@ -51,6 +51,7 @@ export default class CreateComponent implements OnInit, DoCheck {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private blackListService: BlacklistService,
+    private cdref: ChangeDetectorRef,
   ) {}
 
   ngDoCheck(): void {
