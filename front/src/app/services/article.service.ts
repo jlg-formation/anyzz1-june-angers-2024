@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { Injectable, computed, signal } from '@angular/core';
 import { Observable, catchError, delay, map, of, switchMap } from 'rxjs';
 import { Article, NewArticle } from '../interfaces/article';
 
@@ -10,6 +10,7 @@ const url = '/api/articles';
 })
 export class ArticleService {
   articles = signal<Article[] | undefined>(undefined);
+  count = computed(() => this.articles()?.length ?? 0);
   errorMsg = '';
 
   constructor(private http: HttpClient) {}

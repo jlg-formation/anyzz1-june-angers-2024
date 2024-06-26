@@ -1,5 +1,8 @@
 <main>
   <h1>Liste des articles</h1>
+  <div>
+    <p>Total des articles : {{ articleService.count() }}</p>
+  </div>
   <div class="content">
     <div class="error">
       @if (errorMsg) {
