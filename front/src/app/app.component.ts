@@ -11,6 +11,4 @@ import { HeaderComponent } from './layout/header/header.component';
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  title = 'front';
-}
+export class AppComponent {}

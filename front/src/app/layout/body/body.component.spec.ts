@@ -8,9 +8,8 @@ describe('BodyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BodyComponent ]
-    })
-    .compileComponents();
+      imports: [BodyComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
